@@ -1,0 +1,283 @@
+<%- include('../layouts/header.ejs') %>
+
+<style>
+    /* ... (CSS completo omitido por brevedad, asumo que es correcto) ... */
+    /* --- Contenedor y Títulos --- */
+    #coloring-game-section {
+        max-width: 700px;
+        margin: 0 auto;
+        text-align: center;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    h6 { color: #8e44ad; font-size: 2.5rem; margin-bottom: 15px; } /* Púrpura */
+
+    /* --- Lienzo SVG --- */
+    #coloring-canvas-container {
+        width: 100%;
+        max-width: 400px; 
+        height: auto;
+        margin: 20px auto;
+        border: 3px solid #8e44ad;
+        border-radius: 10px;
+        background-color: white;
+        overflow: hidden;
+    }
+    #coloring-svg .colorable {
+        fill: #ecf0f1; 
+        stroke: #34495e; 
+        stroke-width: 2;
+        cursor: pointer;
+        transition: fill 0.3s ease-out; 
+    }
+    #coloring-svg .outline {
+        fill: none;
+        stroke: #34495e;
+        stroke-width: 2;
+        pointer-events: none; 
+    }
+
+    /* --- Leyenda y Paleta --- */
+    .game-controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-top: 20px;
+        gap: 20px;
+    }
+    #legend-box {
+        text-align: left;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        flex: 1; 
+        min-width: 200px;
+        background-color: #fff;
+    }
+    .legend-item {
+        font-size: 0.95rem;
+        margin-bottom: 5px;
+        font-weight: 500;
+    }
+    .legend-swatch {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 3px;
+        border: 1px solid #333;
+        margin-right: 5px;
+    }
+
+    #color-palette {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        flex: 2; 
+    }
+    .color-swatch {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        border: 3px solid transparent;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        transition: transform 0.2s, border-color 0.2s;
+    }
+    .color-swatch.selected {
+        border-color: #8e44ad;
+        transform: scale(1.1);
+    }
+    /* Definición de colores para la paleta */
+    .color-swatch[data-color="#e74c3c"] { background-color: #e74c3c; } 
+    .color-swatch[data-color="#8B4513"] { background-color: #8B4513; } 
+    .color-swatch[data-color="#3498db"] { background-color: #3498db; } 
+    .color-swatch[data-color="#2ecc71"] { background-color: #2ecc71; } 
+    .color-swatch[data-color="#f1c40f"] { background-color: #f1c40f; } 
+    .color-swatch[data-color="#7f8c8d"] { background-color: #7f8c8d; }
+</style>
+
+<div class="container py-5">
+    <div id="coloring-game-section">
+        <h6 class="display-6 fw-bold text-info mb-2">🧠 Colorear por Patrón y Memoria</h6>
+        <p class="lead">Usa la **Leyenda** para saber qué color corresponde a cada parte del dibujo.</p>
+
+        <div id="coloring-canvas-container">
+            
+<svg id="coloring-svg" width="400" height="300" viewBox="0 0 400 300">
+                
+                <%# ---------------------------------------------------- %>
+                <%# 1. CAPA: FONDO (Debe ir primero para ser cubierto) %>
+                <%# ---------------------------------------------------- %>
+                
+                <%# Cielo - Fondo grande %>
+                <rect id="svg-cielo" class="colorable" data-pattern="cielo" x="0" y="0" width="400" height="250" />
+                
+                <%# Suelo/Césped %>
+                <rect id="svg-suelo" class="colorable" data-pattern="cesped" x="0" y="250" width="400" height="50" />
+
+                
+                <%# ---------------------------------------------------- %>
+                <%# 2. CAPA: FIGURAS MEDIANAS (Sobre el fondo) %>
+                <%# ---------------------------------------------------- %>
+                
+                <%# Sol %>
+                <circle id="svg-sol" class="colorable" data-pattern="sol" cx="50" cy="50" r="25" />
+
+                
+                <%# ---------------------------------------------------- %>
+                <%# 3. CAPA: CASA Y PARTES (Debe ir sobre todo lo anterior) %>
+                <%# ---------------------------------------------------- %>
+                
+                <%# Base de la casa (MADERA/Café) %>
+                <rect id="svg-pared" class="colorable" data-pattern="madera" x="100" y="100" width="200" height="150" />
+                
+                <%# Techo (LADRILLO/Rojo) %>
+                <path id="svg-techo" class="colorable" data-pattern="ladrillo" d="M100 100 L200 50 L300 100 Z" />
+                
+                <%# Puerta (METAL/Gris) %>
+                <rect id="svg-puerta" class="colorable" data-pattern="metal" x="175" y="180" width="50" height="70" />
+                
+                <%# Ventana (METAL/Gris) %>
+                <circle id="svg-ventana" class="colorable" data-pattern="metal" cx="150" cy="150" r="30" />
+
+                
+                <%# ---------------------------------------------------- %>
+                <%# 4. CAPA: CONTORNOS (Debe ir al final de todo para ser visible) %>
+                <%# ---------------------------------------------------- %>
+                
+                <rect class="outline" x="100" y="100" width="200" height="150" />
+                <path class="outline" d="M100 100 L200 50 L300 100 Z" />
+                <rect class="outline" x="175" y="180" width="50" height="70" />
+                <circle class="outline" cx="150" cy="150" r="30" />
+            </svg>
+            
+        </div>
+
+        <div class="game-controls">
+            <div id="legend-box">
+                <h5 class="fw-bold mb-3 text-secondary">📘 Leyenda</h5>
+            </div>
+            
+            <div id="color-palette">
+                <div class="color-swatch" data-color="#e74c3c"></div> 
+                <div class="color-swatch" data-color="#8B4513"></div> 
+                <div class="color-swatch" data-color="#3498db"></div> 
+                <div class="color-swatch" data-color="#2ecc71"></div> 
+                <div class="color-swatch" data-color="#f1c40f"></div> 
+                <div class="color-swatch" data-color="#7f8c8d"></div>
+            </div>
+        </div>
+        
+        <p id="message" class="mt-3 lead text-muted">Selecciona un color y ¡a pintar según la leyenda!</p>
+    </div>
+</div>
+
+<script>
+    // --- Variables y Configuración ---
+    const coloringSvg = document.getElementById('coloring-svg');
+    const colorableParts = coloringSvg.querySelectorAll('.colorable');
+    const colorSwatches = document.querySelectorAll('.color-swatch');
+    const legendBox = document.getElementById('legend-box');
+    const messageElement = document.getElementById('message');
+
+    let selectedColor = '#e74c3c'; // Color inicial: Rojo
+
+    // ** LEYENDA CENTRAL: Patrón a Color **
+    const coloringLegend = {
+        "ladrillo": { color: "#e74c3c", name: "Ladrillo 🧱" },
+        "madera":   { color: "#8B4513", name: "Madera 🪵" },
+        "metal":    { color: "#7f8c8d", name: "Metal 🚪" },
+        "cielo":    { color: "#3498db", name: "Cielo ☁️" },
+        "cesped":   { color: "#2ecc71", name: "Césped 🌱" },
+        "sol":      { color: "#f1c40f", name: "Sol ☀️" }
+    };
+    
+    // --- Funciones del Juego ---
+
+    function populateLegend() {
+        // El contenido original del div legend-box es:
+        // <h5 class="fw-bold mb-3 text-secondary">📘 Leyenda</h5>
+        
+        // Creamos el HTML dinámico para la leyenda
+        const legendHtml = Object.keys(coloringLegend).map(pattern => {
+            const item = coloringLegend[pattern];
+            return `
+                <div class="legend-item">
+                    <span class="legend-swatch" style="background-color: ${item.color};"></span>
+                    ${item.name} ➡️ **${pattern.toUpperCase()}**
+                </div>
+            `;
+        }).join('');
+
+        // Reemplazamos el contenido, manteniendo el título
+        legendBox.innerHTML = '<h5 class="fw-bold mb-3 text-secondary">📘 Leyenda</h5>' + legendHtml;
+    }
+
+    function paintPart(event) {
+        const part = event.target;
+        const partPattern = part.dataset.pattern; 
+        
+        // 1. Verificar si la pieza ya está pintada (no tiene la clase 'colorable' si se pinta correctamente)
+        if (!part.classList.contains('colorable')) return; 
+
+        // 2. Si la pieza no tiene un patrón definido, no hacemos nada
+        if (!partPattern || !coloringLegend[partPattern]) {
+            messageElement.textContent = `Esta parte no es parte del desafío de patrones.`;
+            return;
+        }
+        
+        const requiredColor = coloringLegend[partPattern].color;
+
+        // 3. Verificación de Patrón
+        if (selectedColor === requiredColor) {
+            // 🎉 CORRECTO
+            part.style.fill = selectedColor;
+            messageElement.textContent = `✅ ¡Súper! Pintaste correctamente el patrón de ${partPattern}.`;
+            
+            // Desactivar futuros clics en esta pieza y verificar si el juego terminó
+            part.classList.remove('colorable'); 
+            checkWin();
+            
+        } else {
+            // ❌ INCORRECTO
+            const requiredName = coloringLegend[partPattern].name;
+            messageElement.textContent = `❌ ¡Cuidado! El patrón **${partPattern.toUpperCase()}** lleva el color ${requiredName}.`;
+        }
+    }
+
+    function selectColor(event) {
+        colorSwatches.forEach(swatch => swatch.classList.remove('selected'));
+        event.target.classList.add('selected');
+        selectedColor = event.target.dataset.color;
+        messageElement.textContent = `Color seleccionado: ${selectedColor}. Ahora busca el patrón que le corresponde.`;
+    }
+
+    function checkWin() {
+        // Si no quedan piezas con la clase 'colorable', el juego ha terminado
+        const remainingParts = coloringSvg.querySelectorAll('.colorable');
+        if (remainingParts.length === 0) {
+            messageElement.innerHTML = '✨ **¡Increíble! ¡Completaste el dibujo siguiendo todos los patrones!** 🎉';
+        }
+    }
+
+    // --- Configuración Inicial ---
+    populateLegend();
+
+    // 2. Añadir listeners a las partes pintables del SVG
+    colorableParts.forEach(part => {
+        part.addEventListener('click', paintPart);
+    });
+
+    // 3. Añadir listeners a los botones de color
+    colorSwatches.forEach(swatch => {
+        swatch.addEventListener('click', selectColor);
+    });
+
+    // 4. Seleccionar el primer color por defecto
+    document.querySelector('.color-swatch[data-color="#e74c3c"]').classList.add('selected');
+</script>
+
+<%- include('../layouts/footer.ejs') %>

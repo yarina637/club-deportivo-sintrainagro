@@ -1,0 +1,335 @@
+<%- include layouts/header.ejs %>
+
+<style>
+/* Estilos Base */
+input::placeholder, textarea::placeholder {
+    font-size: 0.75rem; 
+}
+.form-label {
+    margin-bottom: 0.2rem !important;
+}
+.btn-outline-secondary {
+    line-height: 0.8;
+}
+/* Estilo para la tabla de pagos */
+.mi-tabla-pequena {
+    font-size: 0.7rem; 
+}
+
+/* ------------------------------------------------------------- */
+/* 📱 AJUSTES PARA DISPOSITIVOS MÓVILES (Pantallas <= 767.98px) */
+/* ------------------------------------------------------------- */
+@media (max-width: 767.98px) {
+    
+    /* 1. Reducir el tamaño de fuente general en móviles */
+    .container, .row {
+        font-size: 0.8rem !important; 
+    }
+    
+    /* 2. Reducir más la fuente en encabezados de tarjetas */
+    .card-header {
+        font-size: 1rem !important;
+        padding: 0.5rem 0.75rem !important;
+    }
+
+    /* 3. Reducir la altura y el tamaño de fuente de los campos de formulario */
+    .form-control-sm, .form-select, .form-control {
+        font-size: 0.75rem !important;
+        padding: 0.25rem 0.5rem !important;
+    }
+    
+    /* 4. Asegurar que los botones del footer sean compactos */
+    .card-footer {
+        padding: 0.5rem !important;
+    }
+    .card-footer .btn-sm {
+        margin: 0.2rem !important;
+    }
+
+    /* 5. Asegurar que los selectores de filtro usen todo el ancho */
+    #finca-select, #catorcena-select {
+        width: 100% !important; 
+    }
+    
+    /* 6. Hacemos la tabla de pagos aún más pequeña para que quepa */
+    .mi-tabla-pequena {
+        font-size: 0.6rem !important; 
+    }
+    .mi-tabla-pequena th, .mi-tabla-pequena td {
+        padding: 0.3rem !important;
+    }
+}
+</style>
+<script>
+    // -------------------------------------------------------------
+    // FUNCIÓN: Filtra Pagos (recarga la página con los parámetros de la URL)
+    // -------------------------------------------------------------
+    function filtrarPagosTotal() {
+        const finca = document.getElementById('finca-select').value;
+        const catorcena = document.getElementById('catorcena-select').value;
+        
+        let url = '/pagos?';
+        
+        if (finca) {
+            url += `finca=${finca}&`;
+        }
+        if (catorcena) {
+            url += `catorcena=${catorcena}&`;
+        }
+        
+        window.location.href = url.endsWith('&') ? url.slice(0, -1) : url;
+    }
+
+    // -------------------------------------------------------------
+    // FUNCIÓN: Carga los datos de la Finca en los inputs y filtra
+    // -------------------------------------------------------------
+    function cargarDatosFinca() {
+        const fincaSeleccionada = document.getElementById('finca-select').value;
+        
+        // 1. Si se selecciona "Todas", limpiamos los campos y solo filtramos la tabla.
+        if (!fincaSeleccionada || fincaSeleccionada === '') {
+            limpiarCamposFinca();
+            filtrarPagosTotal(); 
+            return;
+        }
+
+        const url = `/pagos/info-finca?finca=${fincaSeleccionada}`;
+
+        // 2. Llamada asíncrona a la API de Node.js
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if (data && data.finca) {
+                    // 3. Rellenar los inputs con los IDs únicos
+                    document.getElementById('razon').value = data.razon_social || ''; 
+                    document.getElementById('nit').value = data.nit || '';
+                    document.getElementById('repleg').value = data.representante_legal || '';
+                    document.getElementById('dir').value = data.direccion || '';
+                    document.getElementById('tel').value = data.telefono || '';
+                    document.getElementById('correo').value = data.correo || '';
+                    document.getElementById('mpio').value = data.municipio || '';
+                    document.getElementById('dpto').value = data.departamento || ''; 
+                    document.getElementById('input-seccional').value = data.seccional || ''; // Usa el ID corregido
+                    document.getElementById('estfca').value = data.estado_finca || '';
+                    document.getElementById('obsfca').value = data.observaciones || '';
+                } else {
+                    limpiarCamposFinca();
+                    console.warn(`No se encontró información para la finca: ${fincaSeleccionada}`);
+                }
+                
+                // Llama al filtro principal después de cargar los datos
+                filtrarPagosTotal(); 
+            })
+            .catch(error => {
+                console.error('Error al obtener datos de la finca:', error);
+                limpiarCamposFinca();
+                filtrarPagosTotal(); 
+            });
+    }
+
+    // Función auxiliar para limpiar los campos
+    function limpiarCamposFinca() {
+        document.getElementById('razon').value = '';
+        document.getElementById('nit').value = '';
+        document.getElementById('repleg').value = '';
+        document.getElementById('dir').value = '';
+        document.getElementById('tel').value = '';
+        document.getElementById('correo').value = '';
+        document.getElementById('mpio').value = '';
+        document.getElementById('dpto').value = '';
+        document.getElementById('input-seccional').value = ''; // Usa el ID corregido
+        document.getElementById('estfca').value = '';
+        document.getElementById('obsfca').value = '';
+    }
+</script>
+
+<div class="container"> 
+<div class="row" style="font-size: 0.8rem;">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header" style="font-size: 1.1rem;">Información finca - afiliado</div>
+            
+            <div class="card-body">
+                <form action="" method="post" id="">
+                    <div class="row mb-1">
+                        <div class="col-4">
+                            <label for="finca" class="form-label">Finca</label><br>
+                            <select class="form-select" style="width: 160px;" name="finca" id="finca-select" onchange="cargarDatosFinca()" aria-label="Default select example">
+                                
+                                <option value="" <%= fincaActual === '' ? 'selected' : '' %>>--- Todas ---</option> 
+                                    
+                                <% Fincas.forEach(function(finca) { %>
+                                    <option value="<%= finca.finca %>" <%= fincaActual === finca.finca ? 'selected' : '' %>>
+                                        <%= finca.finca %>
+                                    </option>
+                                <% }); %>
+                            </select>
+                        </div>
+                        <div class="col-3">
+                            <label for="cat" class="form-label">Catorcena</label><br>
+                            <select class="form-select" name="catorcena" id="catorcena-select" onchange="filtrarPagosTotal()" aria-label="Default select example">
+                        
+                                <option value="" <%= catorcenaActual === '' ? 'selected' : '' %>>--- Todas ---</option> 
+                            
+                                <% Catorcenas.forEach(function(catorcena) { %>
+                                    <option value="<%= catorcena.catorcena %>" <%= catorcenaActual === catorcena.catorcena ? 'selected' : '' %>>
+                                    <%= catorcena.catorcena %>
+                                    </option>
+                                <% }); %>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <label for="ano" class="form-label">Año</label><br>
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>---</option>
+                                <option value="1">2025</option>
+                                <option value="2">2024</option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <label for="seccional-select" class="form-label">Seccional</label><br>
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>---</option>
+                                <option value="Apartado">Apartado</option>
+                                <option value="Carepa">Carepa</option>
+                            </select>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row mb-1">
+                        <div class="col-8">
+                            <section style="font-size: 13px;" class="alert alert-info" >
+                                <input class="form-control me-2 light-table-filter" type="text" name="busqueda" id="busqueda" 
+                                placeholder="Buscar por apellido o cédula..." style="font-size: 12px; width:65%" >
+                            </section>
+                        </div>
+                        <div class="col-4">
+                            <a href="/otrosindicato" class="btn btn-warning btn-sm">
+                                <small> Registrar otro sindicato</small>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-9">
+                            <label for="razon" class="form-label">Razon social</label>
+                            <input type="text" class="form-control form-control-sm" 
+                                name="razon" id="razon" aria-describedby="helpId" placeholder="Razon social"
+                                value="<%= fincaSeleccionadaData.razon|| '' %>"/> </div>
+                        <div class="col-3">
+                            <label for="nit" class="form-label">Nit</label>
+                            <input type="text" class="form-control form-control-sm" 
+                                name="nit" id="nit" aria-describedby="helpId" placeholder="Nit"
+                                value="<%= fincaSeleccionadaData.nit || '' %>"/> </div>
+                        <div class="col-12">
+                            <label for="repleg" class="form-label">Representante Legal</label>
+                            <input type="text" class="form-control form-control-sm" 
+                                name="repleg" id="repleg" aria-describedby="helpId" placeholder="Representante Legal"
+                                value="<%= fincaSeleccionadaData.repleg || '' %>"/> </div>
+                        <div class="col-6">
+                            <label for="dir" class="form-label">Dirección</label>
+                            <input type="text" class="form-control form-control-sm" 
+                                name="dir" id="dir" aria-describedby="helpId" placeholder="Dirección"
+                                value="<%= fincaSeleccionadaData.dir || '' %>"/> </div>
+                        <div class="col-6">
+                            <label for="tel" class="form-label">Teléfonos</label>
+                            <input type="text" class="form-control form-control-sm" 
+                                name="tel" id="tel" aria-describedby="helpId" placeholder="Teléfonos"
+                                value="<%= fincaSeleccionadaData.tel || '' %>"/> </div> 
+                        <div class="col-12">
+                            <label for="correo" class="form-label">Correos</label>
+                            <input type="text" class="form-control form-control-sm" 
+                                name="correo" id="correo" aria-describedby="helpId" placeholder="Correos"
+                                value="<%= fincaSeleccionadaData.correo || '' %>"/> </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3">
+                            <label for="mpio" class="form-label">Municipio</label>
+                            <input type="text" class="form-control form-control-sm"
+                                name="mpio" id="mpio" aria-describedby="helpId" placeholder="Municipio"
+                                value="<%= fincaSeleccionadaData.mpio || '' %>"/> </div>
+                        <div class="col-3">
+                            <label for="dpto" class="form-label">Departamento</label>
+                            <input type="text" class="form-control form-control-sm"
+                                name="dpto" id="dpto" aria-describedby="helpId" placeholder="Departamento"
+                                value="<%= fincaSeleccionadaData.dpto || '' %>"/> </div>
+                        <div class="col-3">
+                            <label for="input-seccional" class="form-label">Seccional</label>
+                            <input type="text" class="form-control form-control-sm"
+                                name="seccional" id="input-seccional" aria-describedby="helpId" placeholder="Seccional"
+                                value="<%= fincaSeleccionadaData.seccional || '' %>"/> </div>
+                        <div class="col-3">
+                            <label for="estfca" class="form-label">Estado de la finca</label>
+                            <input type="text" class="form-control form-control-sm"
+                                name="estfca" id="estfca" aria-describedby="helpId" placeholder="Estado de la finca"
+                                value="<%= fincaSeleccionadaData.estfca || '' %>"/> </div>
+                    </div>
+                    <div class="mb-0">
+                        <label for="obsfca" class="form-label">Información de la finca</label>
+                        <textarea class="form-control form-control-sm" name="obsfca" id="obsfca" rows="2"><%= fincaSeleccionadaData.observaciones || '' %></textarea> </div>
+                </form> 
+            </div> 
+            
+            <div class="card-footer text-muted d-flex justify-content-between flex-wrap"> 
+                <button type="button" class="btn btn-outline-success btn-sm mt-1">
+                    <small>Hacer otra consulta</small>
+                </button>
+                <button type="submit" name="accion" value="exportar" form="form-principal" class="btn btn-warning btn-sm mt-1">
+                    <small>Exportar planilla</small>
+                </button>
+
+
+
+                <button type="button" class="btn btn-outline-secondary btn-sm mt-1">
+                    <small>Comprobar conexión</small>
+                </button>
+                <button type="submit" name="accion" value="finalizar" form="" class="btn btn-danger btn-sm mt-1">
+                    <small>Finalizar</small>
+                </button>
+            </div>
+        </div> </div>
+        
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header" style="font-size: 1.1rem;">Lista de Pagos</div>
+            <div class="card-body">
+                <div class="container-fluid p-0"> 
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-striped table-bordered table-sm mi-tabla-pequena">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">Año</th>
+                                        <th scope="col">Documento</th>
+                                        <th scope="col">Apellido</th>
+                                        <th scope="col">Finca</th>
+                                        <th scope="col">Sexo</th>
+                                        <th scope="col">Catorcena</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% if (Pagos.length > 0) { %>
+                                        <% for(var pag=0; pag < Pagos.length; pag++) { %>
+                                            <tr>
+                                                <td><%= Pagos[pag].ano %></td>
+                                                <td><%= Pagos[pag].doc %></td>
+                                                <td><%= Pagos[pag].apell %></td>
+                                                <td><%= Pagos[pag].finca %></td>
+                                                <td><%= Pagos[pag].sexo %></td>
+                                                <td><%= Pagos[pag].catorcena %></td>
+                                            </tr>
+                                        <% } %>
+                                    <% } else { %>
+                                        <tr>
+                                            <td colspan="6" class="text-center">No se encontraron resultados.</td>
+                                        </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> </div>
+</div>
+</div> 
+<%- include layouts/footer.ejs %>

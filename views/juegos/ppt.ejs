@@ -1,0 +1,139 @@
+<%- include('../layouts/header.ejs') %>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="display-5 fw-bold text-warning mb-4 text-center">✊✋✌️ Piedra, Papel o Tijera</h1>
+            <p class="lead text-center">¡Elige tu arma para vencer a la computadora!</p>
+
+            <div id="game-area" class="text-center mt-4 p-4 border rounded shadow-sm">
+                
+                <h3 class="mb-4">Tu Elección:</h3>
+                
+                <div class="d-flex justify-content-around mb-4">
+                    <button class="btn btn-outline-primary btn-lg choice-btn" data-choice="Piedra">
+                        <span style="font-size: 3rem;">✊</span><br>Piedra
+                    </button>
+                    <button class="btn btn-outline-primary btn-lg choice-btn" data-choice="Papel">
+                        <span style="font-size: 3rem;">✋</span><br>Papel
+                    </button>
+                    <button class="btn btn-outline-primary btn-lg choice-btn" data-choice="Tijera">
+                        <span style="font-size: 3rem;">✌️</span><br>Tijera
+                    </button>
+                </div>
+                
+                <div id="result-display" class="alert alert-info mt-4" role="alert">
+                    ¡Haz tu movimiento!
+                </div>
+
+                <p class="fs-5 mt-3">
+                    Ronda: <span id="turn-count" class="text-primary fw-bold">0</span> | 
+                    Puntuación: <span id="user-score" class="text-success fw-bold">0</span> - 
+                    <span id="comp-score" class="text-danger fw-bold">0</span>
+                </p>
+                <button id="reset-btn" class="btn btn-secondary btn-sm">Reiniciar Puntuación</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const choices = ['Piedra', 'Papel', 'Tijera'];
+    const choiceBtns = document.querySelectorAll('.choice-btn');
+    const resultDisplay = document.getElementById('result-display');
+    const userScoreDisplay = document.getElementById('user-score');
+    const compScoreDisplay = document.getElementById('comp-score');
+    const turnCountDisplay = document.getElementById('turn-count'); // Objeto para la Ronda
+    const resetBtn = document.getElementById('reset-btn');
+
+    let userScore = 0;
+    let compScore = 0;
+    let turnCount = 0; // Variable para el contador de rondas
+
+    // Función para restablecer los estilos de los botones al estado inicial
+    function resetBtnStyles() {
+        choiceBtns.forEach(btn => {
+            // Remueve todos los colores de resultado
+            btn.classList.remove('btn-success', 'btn-danger', 'btn-warning', 'btn-info', 'btn-dark'); 
+            // Vuelve al estilo inicial de Bootstrap
+            btn.classList.add('btn-outline-primary'); 
+        });
+    }
+
+    // Lógica principal del juego
+    function playGame(userChoice) {
+        // 1. Prepara la nueva ronda
+        resetBtnStyles();
+        turnCount++; // Incrementa el contador de rondas
+        
+        const compChoice = choices[Math.floor(Math.random() * choices.length)];
+        
+        let result = '';
+        let resultClass = 'alert-info'; // Clase de alerta Bootstrap
+        let userBtnClass = ''; // Clase para el botón del usuario
+        
+        // 2. Determinar el ganador y asignar clases
+        if (userChoice === compChoice) {
+            result = `¡Empate! Ambos eligieron ${userChoice}.`;
+            resultClass = 'alert-warning'; // Amarillo
+            userBtnClass = 'btn-warning'; // Amarillo para el botón
+        } else if (
+            (userChoice === 'Piedra' && compChoice === 'Tijera') ||
+            (userChoice === 'Papel' && compChoice === 'Piedra') ||
+            (userChoice === 'Tijera' && compChoice === 'Papel')
+        ) {
+            result = `¡Ganaste! ${userChoice} vence a ${compChoice}.`;
+            userScore++;
+            resultClass = 'alert-success'; // Verde
+            userBtnClass = 'btn-success'; // Verde para el botón
+        } else {
+            result = `¡Perdiste! ${compChoice} vence a ${userChoice}.`;
+            compScore++;
+            resultClass = 'alert-danger'; // Rojo
+            userBtnClass = 'btn-danger'; // Rojo para el botón
+        }
+
+        // 3. Actualizar la interfaz
+        resultDisplay.textContent = result;
+        resultDisplay.className = `alert ${resultClass} mt-4`;
+        
+        userScoreDisplay.textContent = userScore;
+        compScoreDisplay.textContent = compScore;
+        turnCountDisplay.textContent = turnCount; // Actualiza el contador de rondas
+        
+        // 4. Resaltar la elección del usuario
+        const userBtn = document.querySelector(`.choice-btn[data-choice="${userChoice}"]`);
+        if (userBtn) {
+            userBtn.classList.remove('btn-outline-primary');
+            userBtn.classList.add(userBtnClass);
+        }
+    }
+
+    // Manejadores de eventos
+    choiceBtns.forEach(button => {
+        button.addEventListener('click', (e) => {
+            const userChoice = e.currentTarget.dataset.choice;
+            playGame(userChoice);
+        });
+    });
+
+    resetBtn.addEventListener('click', () => {
+        userScore = 0;
+        compScore = 0;
+        turnCount = 0; // Reiniciar la variable de rondas
+        
+        userScoreDisplay.textContent = '0';
+        compScoreDisplay.textContent = '0';
+        turnCountDisplay.textContent = '0'; // Actualizar display de rondas
+        
+        resultDisplay.textContent = '¡Puntuación Reiniciada! Haz tu primer movimiento.';
+        resultDisplay.className = 'alert alert-info mt-4';
+        
+        resetBtnStyles(); // Restablecer estilos visuales
+    });
+    
+    // Inicializar estilos al cargar la página
+    resetBtnStyles(); 
+</script>
+
+<%- include('../layouts/footer.ejs') %>

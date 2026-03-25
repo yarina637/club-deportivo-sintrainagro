@@ -1,0 +1,912 @@
+* ======================================================= */
+/* 0. BASE, RESET Y MEDIA QUERIES GLOBALES (Fuera de tu orden) */
+/* ======================================================= */
+
+/* Base y Body */
+body {
+    margin-top: 0; 
+}
+.bg-verde-claro {
+    background-color: #93b693 !important; 
+}
+.container {
+    /* CAMBIO: Aumentamos el grosor de 1px a 3px para que sea más visible */
+    border-bottom: 3px solid #dee2e6; 
+    /* El padding-bottom es para separar un poco el menú del contenido siguiente */
+    padding-bottom: 10px; 
+}
+
+/* Reglas Generales de Utilidad */
+.enlace-noticia-principal h1 {
+    text-decoration: none !important; 
+}
+
+/* 9. MEDIA QUERY: ESTILOS PARA MÓVILES Y TABLETAS (< 768px) */
+@media (max-width: 768px) {
+    
+    /* 1. APILAR LAS SECCIONES PRINCIPALES */
+    /* Forzamos que la sección superior (2 col) y la inferior (3 col) se apilen verticalmente. */
+    .seccion-principal-flex,
+    .seccion-noticias-inferior {
+        flex-direction: column; /* Esto convierte la fila en una columna */
+        gap: 40px; /* Aumentamos el espacio entre las secciones apiladas */
+        padding: 0 15px; /* Reducimos el padding lateral */
+    }
+
+    /* 2. REGLAS PARA LA NOTICIA DESTACADA (SECCIÓN SUPERIOR) */
+    
+    /* El contenido principal y los patrocinadores ocupan el 100% del ancho */
+    .contenido-principal,
+    .columna-patrocinadores {
+        flex: auto; 
+        width: 100%; /* Garantiza que ocupen todo el ancho disponible */
+    }
+
+    .noticia-encabezado .imagen-noticia-principal {
+        width: 100%; /* La imagen ocupa todo el ancho */
+        height: auto; /* Mantenemos la proporción de la imagen */
+        max-height: 250px; 
+    }
+
+    /* 3. REGLAS PARA LAS NOTICIAS ADICIONALES (SECCIÓN INFERIOR) */
+    
+    /* Las tres columnas adicionales ahora también ocupan el 100% */
+    .columna-noticias-adicionales {
+        flex: auto; 
+        width: 100%;
+    }
+    
+    /* Ajuste de tamaño del H1 para móviles */
+    h1 {
+        font-size: 1.8em;
+    }
+
+    /* MEDIA QUERY ESPECÍFICA PARA FÚTBOL (Si existe) */
+    .seccion-futbol-columnas {
+        flex-direction: column; /* Apila las columnas verticalmente */
+    }
+}
+
+
+/* ======================================================= */
+/* 9. ESTILOS DE TÍTULO */
+/* ======================================================= */
+
+/* 7. ESTILOS DEL TITULAR H1 */
+h1{
+    font-size: 2.5em; 
+    font-family: 'Oswald', sans-serif; 
+    font-weight: 800; 
+    color: #303F9F; 
+    margin-bottom: 20px; 
+    padding-bottom: 5px;
+    /* border-bottom: 3px solid hsl(59, 100%, 55%);  */
+    text-align: left;
+}
+
+/* Título de la sección de partidos */
+.proximos-partidos .titulo-partidos {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #303F9F; /* Azul Marino */
+    text-align: center; /* Centramos el título */
+    border-bottom: 2px solid hsl(59, 100%, 55%); /* Línea amarilla de acento */
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+/* Estilo del título H3 dentro de las tarjetas */
+.noticia-tarjeta h3 {
+    color: #303F9F; 
+    border-bottom: 2px solid hwb(133 4% 4%);
+    padding-bottom: 5px;
+    margin-bottom: 10px; 
+}
+
+/* Título Superpuesto de Noticia Destacada */
+.noticia-encabezado h1 {
+    position: absolute; 
+    bottom: 0; 
+    left: 0; 
+    right: 0;
+    z-index: 10; 
+    color: white !important; 
+    background-color: rgba(0, 0, 0, 0.7); 
+    padding: 15px 20px;
+    margin: 0; 
+    font-size: 2.2em;
+    border-bottom: none; /* Asegura que no tenga el borde amarillo de la regla general de h1 */
+}
+
+/* Títulos dentro del footer */
+.footer-principal h5 {
+    border-bottom: 2px solid hsl(59, 100%, 55%); /* Línea de acento amarilla */
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+/* Estilo del Título principal de NOTICIA EXTENDIDA (H1) */
+.titulo-noticia-extendida {
+    font-family: 'Oswald', sans-serif; 
+    font-size: 3em; 
+    color: #303F9F; 
+    margin-bottom: 10px;
+    border-bottom: 4px solid hsl(59, 100%, 55%); /* Línea de acento */
+    padding-bottom: 15px;
+    text-align: left;
+}
+
+/* Subtítulos dentro del cuerpo de la noticia extendida */
+.cuerpo-noticia h3 {
+    color: #303F9F;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    border-bottom: 1px dotted #ccc;
+    padding-bottom: 5px;
+}
+
+/* Títulos de las columnas de fútbol (Agenda/Marcadores) */
+.titulo-columna-agenda {
+    text-align: center;
+    color: #0077B6; /* Un color de acento azul fuerte */
+    border-bottom: 2px solid #FFC300; /* Línea de acento amarilla */
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+
+/* ======================================================= */
+/* 8. ESTILOS DE TARJETAS (Noticias y Partidos) */
+/* ======================================================= */
+
+/* 6. ESTILOS DE LAS TARJETAS (SECCIÓN INFERIOR) */
+.noticia-tarjeta {
+    transition: transform 0.2s, box-shadow 0.2s; 
+    height: 100%; 
+}
+.noticia-tarjeta:hover {
+    transform: translateY(-5px); 
+    /* 🟢 REEMPLAZAR: Usamos una sombra amarilla semi-transparente 🟢 */
+    box-shadow: 0 8px 15px rgba(255, 235, 59, 0.4); 
+    color: #303F9F; 
+}
+.tarjeta-contenido {
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+    border: 1px dashed #d0d0d0; 
+    padding: 10px; 
+    border-radius: 4px;
+    background-color: #ffffff; 
+}
+.img-noticia-secundaria {
+    width: 80px; 
+    height: 80px; 
+    object-fit: cover; 
+    border-radius: 5px;
+    flex-shrink: 0; 
+}
+
+/* Estilos de Noticia Destacada (Encabezado) */
+.noticia-encabezado {
+    /* 🟢 CORRECCIÓN 1: Permite superposición (relative) y elimina flex */
+    position: relative; 
+    display: block; 
+    margin-bottom: 20px;
+}
+.noticia-encabezado .imagen-noticia-principal {
+    /* 🟢 CORRECCIÓN 2: 100% de ancho */
+    width: 100%; 
+    height: 400px; /* Altura sugerida para buen impacto visual */
+    object-fit: cover; 
+    border-radius: 20px;
+    
+    /* EFECTO DINÁMICO */
+    filter: grayscale(80%); 
+    transition: filter 0.5s ease-in-out, transform 0.5s ease-in-out; 
+    cursor: pointer; 
+}
+.noticia-encabezado .imagen-noticia-principal:hover {
+    filter: grayscale(0%);
+    /* Quitar o ajustar el zoom aquí si lo deseas */
+    transform: scale(1.03); 
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); 
+}
+.noticia-encabezado .resumen-noticia {
+    margin-top: 15px; /* Espacio debajo de la imagen */
+    padding: 10px;
+    background-color: #f5f5fa;
+}
+
+
+/* Tarjetas de Partidos (Agenda/Marcadores) */
+.tarjeta-partido {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.tarjeta-partido.proximo {
+    /* Fondo para próximos partidos */
+    background-color: #f0f7ff; /* Un azul muy claro */
+    border: 1px solid #cce5ff;
+    transition: transform 0.2s;
+}
+.tarjeta-partido.proximo:hover {
+    transform: translateY(-3px); /* Efecto de 'elevación' al pasar el mouse */
+}
+.tarjeta-partido.marcador {
+    /* Fondo para resultados finales */
+    background-color: #e6ffed; /* Un verde claro para victoria/cancha */
+    border-left: 5px solid #4CAF50; /* Barra lateral verde */
+}
+.equipos {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85em; /* Un tamaño más pequeño que el texto circundante */
+    font-weight: bold;
+    padding: 5px 0;
+}
+.equipos.marcador-final .vs {
+    /* Estilo del marcador central */
+    background-color: #333;
+    color: white;
+    padding: 2px 10px;
+    border-radius: 5px;
+    font-size: 1.2em;
+}
+.equipos .ganador {
+    color: #0077B6; /* Color de acento para el ganador */
+    font-size: 1.2em; /* Hace el nombre del ganador un poco más grande */
+}
+.equipos .perdedor {
+    color: #a0a0a0; /* Color gris suave para el perdedor */
+    font-weight: normal; /* Menos énfasis */
+}
+
+
+/* ======================================================= */
+/* 7. CONTENEDORES PRINCIPALES */
+/* ======================================================= */
+
+/* 1. CONTENEDORES PRINCIPALES (Base para 2 y 3 Columnas) */
+.seccion-principal-flex,
+.seccion-noticias-inferior {
+    display: flex; 
+    gap: 30px; 
+    max-width: 1200px; 
+    margin: 0 auto; 
+    padding: 0 20px;
+}
+
+/* Contenedor de Noticias Extendida */
+.container-noticia {
+    max-width: 900px; /* Ancho cómodo para lectura de una noticia */
+    margin: 40px auto; 
+    padding: 0 20px;
+}
+
+/* Contenedor de Secciones de Fútbol (Agenda/Marcadores) */
+.seccion-futbol-columnas {
+    display: flex; /* Habilita Flexbox */
+    gap: 30px; /* Espacio entre las columnas */
+    padding: 20px 0;
+}
+.columna-proximos, 
+.columna-marcadores {
+    flex: 1; 
+    min-width: 300px; /* Para asegurar que no se vean demasiado estrechas */
+}
+/* Mejora visual de la columna de próximos partidos */
+.columna-proximos {
+    padding: 15px; 
+    border-radius: 10px;
+    background-color: #ffffff; /* Fondo blanco */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+
+/* Estilo general para el contenedor de partidos pequeños */
+.proximos-partidos {
+    margin-top: 25px; /* Espacio que lo separa de los logos de patrocinadores */
+    padding-top: 15px;
+    border-top: 2px solid #ccc; /* Línea separadora */
+    text-align: left; /* Alineamos el texto de los partidos a la izquierda */
+}
+
+
+/* Estilo para cada partido individual */
+.partido-item {
+    display: flex; /* Usamos Flexbox para alinear fecha, equipos y hora */
+    justify-content: space-between; /* Distribuye el espacio entre los elementos */
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px dotted #e0e0e0;
+}
+.partido-item .fecha {
+    font-size: 0.8em; /* Tamaño pequeño, 80% del tamaño base */
+    color: #555; /* Color gris suave para que no compita con los equipos */
+    font-weight: normal; /* Asegura que no esté en negrita */
+}
+.partido-item .equipos {
+    flex-grow: 1; /* Permite que los equipos ocupen el espacio central */
+    text-align: center;
+    font-weight: 600;
+    margin: 0 10px;
+}
+.partido-item .hora {
+    background-color: hsl(59, 100%, 55%); /* Fondo amarillo de acento */
+    color: #303F9F; 
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.6em;
+    font-weight: bold;
+}
+/* Reglas generales para los contenedores de íconos */
+.partido-item i {
+    margin-right: 5px; /* Espacio entre el ícono y el texto */
+    font-size: 1.1em;
+}
+/* Color al Ícono de Fecha */
+.partido-item .fecha i {
+    color: hsl(59, 100%, 55%); /* Ícono de calendario en color amarillo de acento */
+}
+/* Color al Ícono de Hora */
+.partido-item .hora i {
+    color: #303F9F; /* Ícono de reloj en color azul marino */
+}
+
+
+/* ======================================================= */
+/* 6. PATROCINADORES */
+/* ======================================================= */
+
+/* 5. ESTILOS DE LOS LOGOS DE PATROCINADORES */
+.columna-patrocinadores .patrocinador-logo {
+    /* 🟢 VALOR CLAVE: Cambiado de 80% a 60% 🟢 */
+    max-width: 60%; 
+    height: auto; 
+    display: block; 
+    margin: 10px auto; 
+    border: none; 
+}
+
+
+/* ======================================================= */
+/* 5. DISTRIBUCIÓN SECCIÓN INFERIOR */
+/* ======================================================= */
+
+/* 3. DISTRIBUCIÓN DE LA SECCIÓN INFERIOR (3 COLUMNAS IGUALES) */
+.seccion-noticias-inferior .columna-noticias-adicionales {
+    flex: 1; /* Esto hace que las 3 columnas tengan el mismo ancho */
+    /* Quitamos el fondo y padding de este div, el estilo va en .noticia-tarjeta */
+    padding: 0; 
+    background-color: transparent; 
+}
+
+
+/* ======================================================= */
+/* 4. DISTRIBUCIÓN SECCIÓN SUPERIOR */
+/* ======================================================= */
+
+/* 2. DISTRIBUCIÓN DE LA SECCIÓN SUPERIOR (2 COLUMNAS: 75%/25%) */
+.seccion-principal-flex .contenido-principal {
+    flex: 3; /* 75% */
+}
+.seccion-principal-flex .columna-patrocinadores {
+    flex: 1; /* 25% */
+    background-color: #f5f5fa; 
+    padding: 15px;
+    height: fit-content;
+    text-align: center;
+}
+
+
+/* ======================================================= */
+/* 3. TODO LO DE LA BARRA EN VIVO */
+/* ======================================================= */
+
+/* 8. ESTILO PARA LA BARRA "EN VIVO" */
+.barra-resultados {
+    background-color:#303F9F;
+    color: white; 
+    padding: 8px 0;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+.barra-resultados span {
+    background-color: #FFEB3B;
+    color: #3f51b5; 
+    padding: 4px 10px;
+    border-radius: 4px; 
+}
+
+/* Estilo de la barra cuando está en modo LIVE */
+.barra-resultados.live {
+    background-color: #e53935; /* Rojo vibrante para el modo LIVE */
+    color: white; 
+    font-weight: 700;
+}
+/* El texto dentro de la barra LIVE (Quitamos el fondo amarillo que tenías) */
+.barra-resultados.live span {
+    background-color: transparent; 
+    color: white; 
+    padding: 0;
+    border-radius: 0; 
+}
+/* Estilo del punto de LIVE */
+.live-dot {
+    color: white; 
+    margin-right: 8px;
+    font-size: 0.8em;
+    /* Aplicamos la animación de pulsación */
+    animation: pulse 1.5s infinite; 
+}
+/* 🟢 Definición de la Animación de Pulsación (Clave) 🟢 */
+@keyframes pulse {
+    0% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1; /* Brilla al 50% del ciclo */
+    }
+    100% {
+        opacity: 0.5;
+    }
+}
+
+
+/* ======================================================= */
+/* 2. TODO LO DE LA BARRA DE MENÚ */
+/* ======================================================= */
+
+/* Estilos de la barra de navegación */
+.navbar-brand img {
+    height: 120px;
+    margin-right: 15px;
+    vertical-align: middle;
+}
+.portal-text {
+    font-size: 1.25em; 
+    font-weight: bold; 
+    color: #12141f; /* O el color que prefieras para el texto */
+    margin-top: -0.5px; 
+    margin-bottom: 5px; 
+    line-height: 1;
+    font-family: 'Broadway';
+}
+.navbar-nav .nav-link {
+    color: #140808 !important; 
+    font-weight: bold !important; 
+}
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+    color: #2e2b2b !important; 
+    font-weight: bold !important;
+}
+.nav-con-borde {
+    border-bottom: 6px solid #b7e9b7; 
+    /* Solo la sombra de elevación, quitando la línea verde clara */
+    box-shadow: 0 8px 6px -6px rgba(58, 122, 83, 0.4);
+}
+
+/* Estilo del menú desplegable completo (la caja que se abre) */
+.dropdown-menu {
+    /* Fondo del mismo color que tu barra de navegación */
+    background-color: #b6dbb6; 
+    border: none;
+    border-top: 4px solid #303F9F; /* Borde superior con Azul Marino */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+/* Estilo para cada elemento del menú (links) */
+.dropdown-menu .dropdown-item {
+    color: #140808; /* Texto negro */
+    font-weight: bold;
+}
+/* 🟢 Estilo al pasar el ratón por los ítems del menú */
+.dropdown-menu .dropdown-item:hover {
+    background-color: #303F9F; /* Fondo Azul Marino al pasar el ratón */
+    color: white; /* Letra blanca para contrastar */
+}
+/* Estilo para el separador (línea divisoria) */
+.dropdown-menu .dropdown-divider {
+    border-top: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+
+/* ======================================================= */
+/* 1. TODO LO DE PIE DE PÁGINA */
+/* ======================================================= */
+
+/* Estilo del contenedor del pie de página */
+.footer-principal {
+    /* Usamos el Azul Marino como color de fondo principal para el contraste */
+    background-color: #303F9F; 
+    color: white; 
+    margin-top: 40px;
+    padding-top: 25px !important;
+    padding-bottom: 25px !important;
+}
+/* Estilo para los enlaces de texto y redes sociales */
+.footer-principal a {
+    color: #b6dbb6; /* Verde claro para los enlaces, contrasta bien */
+    text-decoration: none;
+    transition: color 0.3s;
+}
+.footer-principal a:hover {
+    color: hsl(59, 100%, 55%); /* Amarillo de acento al pasar el ratón */
+}
+/* Línea divisoria */
+.footer-principal hr {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+/* Estilo para los ÍCONOS de redes sociales dentro del footer */
+.footer-principal .fa-lg { /* Asumiendo que usaste la clase fa-lg para tamaño */
+    font-size: 1.5em; /* Un poco más grandes */
+    margin: 0 10px; /* Espacio entre íconos */
+}
+/* Color BASE de los íconos: Verde Claro (#b6dbb6) */
+.footer-principal .fab {
+    color: #b6dbb6; 
+    transition: color 0.3s;
+}
+/* Color al pasar el ratón: Amarillo de Acento */
+.footer-principal .fab:hover {
+    color: hsl(59, 100%, 55%); /* El amarillo de acento */
+}
+
+/* ======================================================= */
+/* ESTILOS ADICIONALES/MISCELÁNEOS (Fuera de tu orden) */
+/* ======================================================= */
+
+/* BOTONES DE REGRESO/ACCIÓN */
+.btn-regreso {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #303F9F;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    margin-top: 30px;
+}
+.btn-regreso:hover {
+    background-color: #0b255d;
+}
+.btn-regreso-futbol {
+    /* Diseño principal: Azul del uniforme */
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 50px; 
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    
+    /* Colores: Azul principal y texto blanco */
+    background-color: #0077B6; /* Azul vibrante */
+    color: white; 
+    
+    /* Borde y sombra en amarillo fuerte */
+    border: 3px solid #FFC300; /* Amarillo/Dorado para contraste */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+    transition: all 0.3s ease;
+}
+.btn-regreso-futbol i {
+    margin-right: 8px;
+    font-size: 1.3em; /* Un poco más grande para destacar */
+    color: #FFC300; /* El balón se tiñe de amarillo */
+    transition: transform 0.3s ease; 
+}
+.btn-regreso-futbol:hover {
+    background-color: #005A8D; /* Azul más oscuro al pasar el ratón */
+    transform: translateY(-2px); 
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+.btn-regreso-futbol:hover i {
+    transform: rotate(-20deg) scale(1.1); /* Gira más y crece un poco */
+}
+
+
+/* ESTILOS DE CUERPO DE NOTICIA EXTENDIDA */
+.fecha-autor {
+    color: #777;
+    font-size: 0.9em;
+    margin-bottom: 25px;
+}
+.contenedor-imagen-principal {
+    margin-bottom: 25px;
+    border-radius: 10px;
+    overflow: hidden; /* Asegura que la imagen respete el border-radius */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+.img-noticia-grande {
+    width: 100%;
+    height: auto; 
+    display: block;
+}
+.caption-img {
+    background-color: #f5f5fa;
+    color: #555;
+    padding: 10px 15px;
+    font-size: 0.9em;
+    font-style: italic;
+    text-align: center;
+}
+.cuerpo-noticia p {
+    line-height: 1.8;
+    margin-bottom: 20px;
+    font-size: 1.1em;
+}
+.parrafo-destacado {
+    font-style: italic;
+    font-weight: bold;
+    color: #333;
+    padding-left: 15px;
+    border-left: 5px solid #b6dbb6; /* Borde de acento Verde Claro */
+}
+.cuerpo-noticia ul {
+    list-style: none; /* Elimina viñetas por defecto */
+    padding-left: 0;
+}
+.cuerpo-noticia ul li {
+    background-color: #f0f8ff; /* Fondo sutil */
+    padding: 10px 15px;
+    border-left: 3px solid hsl(59, 100%, 55%); /* Marcador Amarillo de Acento */
+    margin-bottom: 8px;
+}
+.fecha-hora, .lugar, .detalles-marcador {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 5px;
+}
+
+/* ======================================================= */
+/* ESTILOS DE FÚTBOL (AGENDA Y MARCADORES) - AJUSTES */
+/* ======================================================= */
+
+/* 1. Unir el contenido dentro de la tarjeta (reduciendo padding y margin) */
+.tarjeta-partido {
+    border: 1px solid #ddd;
+    /* REDUCCIÓN CLAVE: De 15px a 10px para juntar el contenido */
+    padding: 10px; 
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* 2. Compactar los párrafos internos (fecha, lugar, detalles) */
+.fecha-hora, 
+.lugar, 
+.detalles-marcador {
+    font-size: 0.9em;
+    color: #666;
+    /* MARGEN CLAVE: Establecemos un margen mínimo/nulo. 
+       El 5px superior era lo que lo separaba mucho del elemento anterior. */
+    margin-top: 2px; /* Espacio mínimo arriba */
+    margin-bottom: 2px; /* Espacio mínimo abajo */
+    padding: 0; /* Aseguramos que no haya relleno extra */
+}
+
+/* Ajustes a los equipos para que no se separen demasiado */
+.equipos {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85em; 
+    font-weight: bold;
+    /* REDUCCIÓN CLAVE: Reduce el espacio vertical entre los equipos y el texto de fecha/lugar */
+    padding: 3px 0; 
+}
+
+
+/* --- Estilos que se mantienen sin cambios mayores para contexto --- */
+
+/* Mejora visual de la columna de próximos partidos (se mantiene) */
+.columna-proximos {
+    flex: 1; 
+    min-width: 300px;
+    padding: 15px; 
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos de título de columna (se mantiene) */
+.titulo-columna-agenda {
+    text-align: center;
+    color: #0077B6; 
+    border-bottom: 2px solid #FFC300;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.tarjeta-partido.proximo {
+    background-color: #f0f7ff;
+    border: 1px solid #cce5ff;
+    transition: transform 0.2s;
+}
+
+.tarjeta-partido.marcador {
+    background-color: #e6ffed; 
+    border-left: 5px solid #4CAF50; 
+}
+
+/* ======================================================= */
+/* ESTILOS DE FÚTBOL (AGENDA Y MARCADORES) - AJUSTES */
+/* ======================================================= */
+
+/* 1. Unir el contenido dentro de la tarjeta (reduciendo padding y margin) */
+.tarjeta-partido {
+    border: 1px solid #ddd;
+    /* REDUCCIÓN CLAVE: De 15px a 10px para juntar el contenido */
+    padding: 10px; 
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* 2. Compactar los párrafos internos (fecha, lugar, detalles) */
+.fecha-hora, 
+.lugar, 
+.detalles-marcador {
+    font-size: 0.9em;
+    color: #666;
+    /* MARGEN CLAVE: Establecemos un margen mínimo/nulo. 
+       El 5px superior era lo que lo separaba mucho del elemento anterior. */
+    margin-top: 2px; /* Espacio mínimo arriba */
+    margin-bottom: 2px; /* Espacio mínimo abajo */
+    padding: 0; /* Aseguramos que no haya relleno extra */
+}
+
+/* Ajustes a los equipos para que no se separen demasiado */
+.equipos {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85em; 
+    font-weight: bold;
+    /* REDUCCIÓN CLAVE: Reduce el espacio vertical entre los equipos y el texto de fecha/lugar */
+    padding: 3px 0; 
+}
+
+
+/* --- Estilos que se mantienen sin cambios mayores para contexto --- */
+
+/* Mejora visual de la columna de próximos partidos (se mantiene) */
+.columna-proximos {
+    flex: 1; 
+    min-width: 300px;
+    padding: 15px; 
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos de título de columna (se mantiene) */
+.titulo-columna-agenda {
+    text-align: center;
+    color: #0077B6; 
+    border-bottom: 2px solid #FFC300;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.tarjeta-partido.proximo {
+    background-color: #f0f7ff;
+    border: 1px solid #cce5ff;
+    transition: transform 0.2s;
+}
+
+.tarjeta-partido.marcador {
+    background-color: #e6ffed; 
+    border-left: 5px solid #4CAF50; 
+}
+
+
+/*2025_s1
+
+/* ============================================== */
+/* ESTILOS PARA LA IMAGEN DESTACADA (Proporcional y Overlay) */
+/* ============================================== */
+
+/* Contenedor relativo para posicionamiento del overlay */
+.posicion-relativa-contenedor {
+    position: relative; 
+}
+
+/* Limita la altura de la imagen para hacerla PROPORCIONAL (más corta) */
+.imagen-destacada-corta {
+    max-height: 350px; 
+    overflow: hidden;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.5rem; 
+}
+
+.imagen-destacada-corta img {
+    width: 100%;
+    object-fit: cover; 
+    height: auto; 
+}
+
+/* Estilos para el Título Superpuesto (OVERLAY) */
+.titulo-overlay {
+    position: absolute;
+    top: 0; 
+    left: 0;
+    width: 100%;
+    
+    /* Fondo con Transparencia (60% de opacidad) */
+    background-color: rgba(0, 0, 0, 0.6); 
+    
+    color: white; 
+    font-size: 1.5rem; 
+    font-weight: bold;
+    
+    /* Alineación a la izquierda (parte inicial) */
+    text-align: left; 
+    
+    padding: 0.75rem 0.5rem;
+    padding-left: 1.5rem; /* Margen para que no toque el borde izquierdo */
+    
+    z-index: 10; 
+    
+    /* Bordes redondeados superiores */
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+/* ============================================== */
+/* ESTILOS PARA PATROCINADORES (Compactos) */
+/* ============================================== */
+.columna-patrocinadores-compacta .patrocinador-logo {
+    max-width: 180px; /* Limita el ancho del logo */
+    height: auto;
+    display: block; 
+    margin: 0 auto 1rem auto; /* Centra y añade margen */
+}
+
+@media (max-width: 767.98px) {
+    
+    /* 1. Título Superpuesto (Overlay) más pequeño en móviles */
+    .titulo-overlay {
+        font-size: 1.2rem; /* Reduce el tamaño del texto del título */
+        padding: 0.5rem 1rem; /* Reduce el relleno vertical y horizontal */
+    }
+
+    /* 2. Imagen Destacada (Para evitar que sea demasiado larga) */
+    .imagen-destacada-corta {
+        max-height: 250px; /* Reducimos la altura máxima en móviles */
+    }
+
+    /* 3. Columna de Patrocinadores (Se centra mejor el título cuando se apila) */
+    .columna-patrocinadores-compacta {
+        margin-top: 1.5rem; /* Añade un espacio entre la noticia y los patrocinadores apilados */
+        padding-top: 1.5rem; /* Asegura un buen espacio */
+        border-top: 1px solid #eee; /* Opcional: añade una línea divisoria sutil */
+    }
+    
+    /* 4. Asegura que los logos de patrocinadores estén centrados cuando se apilan */
+    .columna-patrocinadores-compacta .patrocinador-logo {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    /* 5. Otros Deportes (Alineación a la izquierda en móviles, más natural) */
+    .seccion-tres-columnas-deportivas .card-body {
+        text-align: left !important; /* Anula text-end para una mejor legibilidad en móvil */
+    }
+    
+    .seccion-tres-columnas-deportivas .card-body .float-end {
+        float: none !important; /* Desactiva el float del botón */
+        display: block; /* El botón ocupa todo el ancho de la tarjeta */
+        margin-top: 0.5rem;
+    }
+}

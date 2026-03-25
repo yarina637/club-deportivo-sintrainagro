@@ -1,0 +1,52 @@
+var express = require('express');
+var router = express.Router(); 
+
+// Rutas existentes:
+
+router.get('/calculadora', function(req, res, next) {
+    res.render('juegos/calculadora', { 
+        title: 'Calculadora de Ejercicios'
+    }); 
+});
+
+router.get('/memorama', function(req, res, next) {
+    res.render('juegos/memorama', { 
+        title: 'Mini-Cerebros - Memorama'
+    }); 
+});
+
+router.get('/trivia', function(req, res, next) {
+    res.render('juegos/trivia', { 
+        title: 'Trivia de Deportes' 
+    }); 
+});
+
+router.get('/ppt', function(req, res, next) {
+    res.render('juegos/ppt', { 
+        title: 'Piedra, Papel o Tijera' 
+    }); 
+});
+
+router.get('/secuencia', (req, res) => { 
+    res.render('juegos/secuencia', { 
+        title: 'Cerebro Activo - Secuencia',
+        // Otros datos que necesite tu layout principal
+    });
+});
+
+router.get('/secuencia1', (req, res) => { 
+    res.render('juegos/secuencia1', { 
+        title: 'Cerebro Activo - Secuencia fútbol',
+        // Otros datos que necesite tu layout principal
+    });
+});
+
+// ¡RUTA DE PINTEMOS!
+router.get('/pintemos', function(req, res, next) {
+    res.render('juegos/pintemos', { 
+        title: 'Colorear por Patrón y Memoria'
+    }); 
+});
+
+
+module.exports = router;

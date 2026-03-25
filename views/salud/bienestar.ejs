@@ -1,0 +1,104 @@
+<%- include('../layouts/header.ejs', { título: 'Bienestar Mental y Sueño | Sintrainagro' }) %>
+
+<main class="container py-5">
+    <div style="max-width: 900px; margin: 0 auto;">
+        
+        <div class="text-center mb-5">
+            <h1 class="display-5 fw-bold text-secondary">🧘 Bienestar Mental y Recuperación</h1>
+            <p class="lead text-muted">Optimiza tu mente para dominar la cancha. El descanso es tan importante como el entrenamiento.</p>
+        </div>
+
+        <div class="row mb-5">
+            
+            <div class="col-12">
+                <div class="card bg-light border-secondary p-4 shadow-sm">
+                    <div class="card-body">
+                        <h4 class="fw-bold text-secondary"><i class="fas fa-bed me-2"></i> El Poder de la Reparación: Sueño</h4>
+                        <p>El sueño es el momento en que el cuerpo repara los músculos, consolida la memoria y regula las hormonas de crecimiento. Un deportista de alto rendimiento necesita entre **7 y 9 horas de sueño** de calidad.</p>
+                        <ul class="list-unstyled small">
+                            <li><i class="fas fa-moon text-primary me-1"></i> La falta de sueño reduce la fuerza y la velocidad.</li>
+                            <li><i class="fas fa-clock text-primary me-1"></i> Establece una hora fija para acostarte y levantarte.</li>
+                            <li><i class="fas fa-laptop-code text-primary me-1"></i> Evita pantallas (móvil, TV) al menos 30 minutos antes de dormir.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 border-success shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="fas fa-leaf fa-3x text-success mb-3"></i>
+                        <h5 class="card-title fw-bold text-success">Gestión del Estrés</h5>
+                        <p class="card-text small text-dark">Aprende a usar la respiración y la atención plena para reducir la ansiedad competitiva y el agotamiento mental.</p>
+                        <button class="btn btn-sm btn-outline-success mt-3" data-bs-toggle="modal" data-bs-target="#estresModal">Técnicas Rápidas</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 border-info shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="fas fa-bullseye fa-3x text-info mb-3"></i>
+                        <h5 class="card-title fw-bold text-info">Foco y Concentración</h5>
+                        <p class="card-text small text-dark">Estrategias para bloquear distracciones, mantener el foco en el juego y recuperar la calma después de un error.</p>
+                        <button class="btn btn-sm btn-outline-info mt-3" data-bs-toggle="modal" data-bs-target="#focoModal">Ejercicios de Foco</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="text-center mt-5">
+            <a href="/salud/inicio" class="btn btn-lg btn-outline-info">
+                <i class="fas fa-arrow-left me-2"></i> Volver a Salud Integral
+            </a>
+        </div>
+        
+    </div>
+</main>
+
+<div class="modal fade" id="estresModal" tabindex="-1" aria-labelledby="estresModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title" id="estresModalLabel">Técnicas de Respiración Rápida</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p class="fw-bold">Respiración 4-7-8 (Para antes de dormir o momentos de tensión):</p>
+        <ol>
+            <li>Inhala profundamente por la nariz contando hasta **4**.</li>
+            <li>Mantén el aire contando hasta **7**.</li>
+            <li>Exhala completamente por la boca contando hasta **8**.</li>
+        </ol>
+        <p class="small mt-3">Repite 4 veces. Esto calma el sistema nervioso rápidamente.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="focoModal" tabindex="-1" aria-labelledby="focoModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-info text-white">
+        <h5 class="modal-title" id="focoModalLabel">Ejercicio de Anclaje Visual</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p class="fw-bold">El "Punto Clave":</p>
+        <p>Antes de cada partido, elige un punto fijo en el campo (una esquina, la portería). Cuando te sientas distraído o frustrado, mira ese punto por un segundo. Esto sirve como un "ancla" para devolver tu mente al momento presente y al plan de juego.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../layouts/footer.ejs') %>

@@ -1,0 +1,70 @@
+#!/usr/bin/env node
+
+/**
+ * Módulo de dependencias.
+ */
+var app = require('../app');
+var debug = require('debug')('clubdeportivosintrainagro:server');
+var http = require('http');
+
+/**
+ * Configuración del puerto.
+ */
+var port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+
+/**
+ * Crear el servidor HTTP.
+ */
+var server = http.createServer(app);
+
+/**
+ * Escuchar en el puerto proporcionado.
+ */
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+/**
+ * Normalizar el puerto.
+ */
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+  if (isNaN(port)) return val;
+  if (port >= 0) return port;
+  return false;
+}
+
+/**
+ * Manejo de errores del servidor.
+ */
+function onError(error) {
+  if (error.syscall !== 'listen') throw error;
+  var bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requiere privilegios elevados');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' ya está en uso');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Confirmación de que el servidor está corriendo.
+ */
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
+  debug('Escuchando en ' + bind);
+  // ESTO ES NUEVO: Te avisará en la terminal de tu PC cuando esté listo
+  console.log('-------------------------------------------');
+  console.log('🚀 CLUB DEPORTIVO SINTRAINAGRO - URABÁ');
+  console.log('✅ Servidor listo en: http://localhost:' + addr.port);
+  console.log('-------------------------------------------');
+}

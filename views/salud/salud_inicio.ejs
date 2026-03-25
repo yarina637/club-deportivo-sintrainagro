@@ -1,0 +1,85 @@
+<%- include('../layouts/header.ejs') %>
+    <style>
+        .health-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-radius: 12px;
+        }
+
+        .health-card:hover {
+            transform: translateY(-5px);
+            /* Pequeño levantamiento */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .icon-large {
+            font-size: 4rem;
+            margin-bottom: 15px;
+        }
+    </style>
+
+    <main class="container py-5">
+        <div class="text-center mb-5">
+            <h1 class="display-4 fw-bold text-info">💙 Salud y Bienestar Integral Sintrainagro</h1>
+            <p class="lead text-muted">Todo lo que necesitas para optimizar tu cuerpo y mente, dentro y fuera de la
+                cancha.</p>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6 mb-4">
+                <a href="/salud/nutricion" class="text-decoration-none d-block health-card card h-100 border-info">
+                    <div class="card-body text-center p-4">
+                        <i class="fas fa-apple-alt icon-large text-info"></i>
+                        <h2 class="card-title fw-bold text-info">Nutrición y Energía</h2>
+                        <p class="card-text text-dark">Guías de alimentación pre y post-entrenamiento, consejos de
+                            hidratación y el uso de la **Calculadora Fitness** para tus objetivos.</p>
+                        <span class="btn btn-info mt-3">Ver Herramientas</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-6 mb-4">
+                <a href="/salud/lesiones" class="text-decoration-none d-block health-card card h-100 border-warning">
+                    <div class="card-body text-center p-4">
+                        <i class="fas fa-medkit icon-large text-warning"></i>
+                        <h2 class="card-title fw-bold text-warning">Prevención de Lesiones</h2>
+                        <p class="card-text text-dark">Conoce las rutinas de calentamiento efectivas, técnicas de
+                            enfriamiento y protocolos básicos de primeros auxilios deportivos.</p>
+                        <span class="btn btn-warning mt-3">Ver Protocolos</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-6 mb-4">
+                <a href="/salud/bienestar" class="text-decoration-none d-block health-card card h-100 border-secondary">
+                    <div class="card-body text-center p-4">
+                        <i class="fas fa-sun icon-large text-secondary"></i>
+                        <h2 class="card-title fw-bold text-secondary">Bienestar Mental y Sueño</h2>
+                        <p class="card-text text-dark">La mente es el músculo más importante. Aprende a manejar el
+                            estrés, mejorar la calidad de tu sueño y mantener la motivación.</p>
+                        <span class="btn btn-secondary mt-3">Consejos Útiles</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-6 mb-4">
+                <a href="/juegos" class="text-decoration-none d-block health-card card h-100 border-success">
+                    <div class="card-body text-center p-4">
+                        <i class="fas fa-brain icon-large text-success"></i>
+                        <h2 class="card-title fw-bold text-success">Fitness Mental y Juegos</h2>
+                        <p class="card-text text-dark">Pon a prueba y entrena tus habilidades cognitivas (memoria,
+                            concentración) con nuestros desafíos de "Cerebro Activo" (Secuencia y Trivia).</p>
+                        <span class="btn btn-success mt-3">Jugar Ahora</span>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="/" class="btn btn-lg btn-outline-info">
+                <i class="fas fa-arrow-left me-2"></i> Volver a Noticias Deportivas
+            </a>
+        </div>
+
+    </main>
+    <%- include('../layouts/footer.ejs') %>

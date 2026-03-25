@@ -1,0 +1,171 @@
+<%- include('./layouts/header') %>
+
+<style>
+    /* --- ESTILOS PERSONALIZADOS DEL CARRUSEL --- */
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        background-color: rgba(17, 17, 17, 0.8) !important; 
+        border-radius: 5px; 
+        width: 3rem; 
+        height: 3rem; 
+        filter: none; 
+        background-size: 60% 60%; 
+        transition: all 0.3s ease; 
+    }
+
+    .carousel-control-prev-icon:hover,
+    .carousel-control-next-icon:hover {
+        background-color: #2207bb !important; 
+        transform: scale(1.1); 
+    }
+
+    .carousel-control-prev,
+    .carousel-control-next {
+        width: 8%; 
+        align-items: flex-end; 
+        padding-bottom: 20px; 
+    }
+
+    /* Flechas Color Dorado */
+    .carousel-control-prev-icon {
+        --bs-carousel-control-prev-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23FFD700'%3e%3cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3e%3c/svg%3e");
+    }
+    .carousel-control-next-icon {
+        --bs-carousel-control-next-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23FFD700'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+    }
+
+    /* Título sobre la imagen */
+    .posicion-relativa-contenedor .titulo-overlay {
+        position: absolute;
+        top: 5%;
+        left: 1.5rem;
+        z-index: 10;
+        color: white !important;
+        font-weight: 800;
+        font-size: 2.2rem;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+    }
+
+    /* --- EFECTO EN VIVO PULSANTE --- */
+    .barra-resultados.live {
+        background-color: #D62828 !important;
+        animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+        0% { box-shadow: 0 0 0px rgba(214, 40, 40, 0.7); }
+        70% { box-shadow: 0 0 15px rgba(214, 40, 40, 0); }
+        100% { box-shadow: 0 0 0px rgba(214, 40, 40, 0); }
+    }
+
+    .btn-femenino { background-color: #C2185B; color: white; }
+    .btn-femenino:hover { background-color: #880E4F; color: white; }
+</style>
+
+<!-- MODAL DE INICIO -->
+<div class="modal fade" id="modalFemeninoDestacado" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header text-white" style="background-color: #C2185B;">
+                <h5 class="modal-title fw-bold">⚽ ¡Histórico! 1er Torneo Femenino</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center">
+                <img src="/images/Deportivo/portada_1ra copa femenina de futbol.png" class="img-fluid rounded mb-3 shadow" alt="Copa Femenina">
+                <p class="lead fw-bold">"Celebramos la pasión y el talento en Urabá."</p>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <a href="/uraba/femenino" class="btn btn-femenino btn-lg">Ver Reportaje</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<main class="container py-4">
+    <!-- SECCIÓN NOTICIA PRINCIPAL -->
+    <div class="row mb-3"> 
+        <div class="col-lg-9 noticia-destacada">
+            <div id="carruselNoticiaDestacada" class="carousel slide mb-2 posicion-relativa-contenedor" data-bs-ride="carousel">
+                <h1 class="titulo-overlay">Sección Deportiva Urabá</h1> 
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="/images/Deportivo/ganador.jpg" class="d-block w-100 rounded" alt="Campeón">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/images/Deportivo/img1.jpg" class="d-block w-100 rounded" alt="Juego">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carruselNoticiaDestacada" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carruselNoticiaDestacada" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+            <h2 class="fw-bold text-dark mt-3">La Finca El Roble es la ganadora del torneo empresarial</h2>
+            <p class="lead">¡El campeón se vistió de verde y amarillo! La Finca El Roble se coronó monarca indiscutible tras una final épica.</p>
+        </div>
+
+        <!-- COLUMNA LATERAL (WIDGETS) -->
+        <div class="col-lg-3">
+            <div class="card mb-4 bg-primary text-white text-center shadow-sm p-2">
+                <h6 class="fw-bold small">¿Inscripciones?</h6>
+                <a href="/uraba/registro" class="btn btn-warning btn-sm fw-bold">Portal Sintrainagro</a>
+            </div>
+<div class="barra-resultados live p-2 mb-3 rounded text-white text-center">
+    <span class="small fw-bold">
+        <i class="fas fa-circle me-1 text-white"></i> 
+        <%= estadoPartido %>: <%= marcadorEnVivo %>
+    </span>
+</div>
+            <div class="card mb-4 bg-dark text-white text-center shadow p-2">
+                <h5 class="fw-bold mb-2">Quinielas Online</h5>
+                <a href="/juegos/pronosticos" class="btn btn-warning btn-sm">¡Jugar Ahora!</a>
+            </div>
+
+            <div class="card bg-info text-white text-center shadow p-2">
+                <h6 class="fw-bold mb-1">💖 Zona de Bienestar</h6>
+                <a href="/salud/inicio" class="btn btn-light btn-sm text-info fw-bold">Ir a Salud</a>
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-5">
+
+    <!-- SECCIÓN COPA FEMENINA -->
+    <h2 class="text-center mb-4 fw-bold text-success">⚽ I Copa Femenina de Fútbol Urabá</h2>
+    <div class="row mb-5">
+        <div class="col-md-4 mb-3">
+            <div class="card h-100 border-success shadow-sm p-3">
+                <h4 class="text-success fw-bold">📅 Apertura</h4>
+                <p class="small">Gran inauguración: 5 de Noviembre, 7:00 PM Estadio de Apartadó.</p>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card h-100 border-primary shadow-sm p-3">
+                <h4 class="text-primary fw-bold">🔥 1ra Fecha</h4>
+                <p class="small">Atléticas vs Poderosas | 7 Nov - 4:00 PM</p>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card h-100 border-warning shadow-sm p-3">
+                <h4 class="text-warning fw-bold">👑 16 Equipos</h4>
+                <p class="small">Conoce a las guerreras que buscarán la gloria este año.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="/" class="btn btn-secondary btn-lg">
+            <i class="fas fa-futbol me-2"></i> Volver a la Cancha
+        </a>
+    </div>
+</main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var myModal = new bootstrap.Modal(document.getElementById('modalFemeninoDestacado'));
+        myModal.show();
+    });
+</script>
+
+<%- include('./layouts/footer') %>

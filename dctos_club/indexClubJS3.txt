@@ -1,0 +1,75 @@
+// index.js
+var express = require('express');
+var router = express.Router();
+
+router.get('/', function(req, res, next) {
+res.render('index', { title: 'Club Deportivo Sintrainagro - Inicio' });
+});
+
+/* GET Uraba 2025 S1 page. */
+router.get('/uraba/2025_s1', function(req, res, next) {
+  // DEBES enviar el objeto con la variable 'title'
+  res.render('uraba/2025_s1', { 
+      title: 'Club  deportivo Sintrainagro - 2025' // <-- ¡Esto es crucial!
+  }); 
+});
+
+/* FUTBOL FEMENINO*/
+router.get('/uraba/femenino', function(req, res, next) {
+  // DEBES enviar el objeto con la variable 'title'
+  res.render('uraba/femenino', { 
+      title: 'Torneo Femenino Sintrainagro - 2025' // <-- ¡Esto es crucial!
+  }); 
+});
+
+
+// Opcional: Para el enlace de Baloncesto
+router.get('/uraba/baloncesto', function(req, res, next) {
+  res.render('uraba/baloncesto', { title: 'Urabá - Baloncesto' }); 
+});
+
+/* GET Uraba 2025 S1 page. */
+router.get('/juegos/memorama', function(req, res, next) {
+  // DEBES enviar el objeto con la variable 'title'
+  res.render('juegos/memorama', { 
+      title: 'Mini-Cerebros - 2025' // <-- ¡Esto es crucial!
+  }); 
+});
+
+
+/* GET . */
+router.get('/juegos/calculadora', function(req, res, next) {
+    res.render('juegos/calculadora', { 
+        title: 'Calculadora de Ejercicios' // O el título que prefieras
+    }); 
+});
+
+router.get('/salud/inicio', (req, res) => {
+    res.render('salud/salud_inicio', {
+        // Asegúrate de que la variable 'título' esté definida y enviada
+        título: 'Salud Integral | Sintrainagro' 
+    }); 
+});
+
+
+router.get('/salud/nutricion', (req, res) => {
+    // Nota: El título se pasa aquí, solucionando el error anterior.
+    res.render('salud/nutricion', { título: 'Nutrición y Energía | Sintrainagro' });
+});
+
+router.get('/salud/lesiones', (req, res) => {
+    res.render('salud/lesiones', { título: 'Prevención de Lesiones | Sintrainagro' });
+});
+
+router.get('/salud/bienestar', (req, res) => {
+    res.render('salud/bienestar', { título: 'Bienestar Mental y Sueño | Sintrainagro' });
+});
+
+
+router.get('/juegos', (req, res) => {
+    // Si la ruta /juegos era usada para otra cosa, reconfígurala
+    res.render('juegos_inicio', { título: 'Gimnasio Cerebral | Sintrainagro' });
+});
+
+
+module.exports = router;

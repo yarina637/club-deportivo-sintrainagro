@@ -1,0 +1,188 @@
+
+<%- include('../layouts/header.ejs') %>
+<%# views/juegos/colorear.ejs - Juego de Libro de Colorear Digital con SVG %>
+
+<style>
+    /* Estilos generales para el contenedor del juego */
+    #coloring-game-section {
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: center;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    h6 {
+        color: #e67e22; /* Naranja para el título */
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+    }
+
+    .lead {
+        color: #555;
+        font-size: 1.1rem;
+    }
+
+    /* Contenedor del lienzo de dibujo */
+    #coloring-canvas-container {
+        position: relative; /* Importante para posicionar elementos dentro */
+        width: 100%;
+        max-width: 400px; /* Ancho máximo del SVG */
+        height: auto;
+        margin: 20px auto;
+        border: 3px solid #e67e22;
+        border-radius: 10px;
+        background-color: white;
+        overflow: hidden; /* Asegura que el SVG no se desborde */
+    }
+
+    /* Estilos para el SVG - Los colores iniciales de las partes a colorear */
+    #coloring-svg .colorable {
+        fill: #ecf0f1; /* Color gris claro inicial para las áreas pintables */
+        stroke: #34495e; /* Contorno oscuro */
+        stroke-width: 2;
+        cursor: pointer;
+        transition: fill 0.2s ease-out; /* Transición suave al pintar */
+    }
+
+    /* Estilos para los contornos si los mantienes separados */
+    #coloring-svg .outline {
+        fill: none;
+        stroke: #34495e;
+        stroke-width: 2;
+        pointer-events: none; /* Ignora clics en el contorno */
+    }
+
+    /* Contenedor de la paleta de colores */
+    #color-palette {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 20px;
+        flex-wrap: wrap; /* Para que los colores se envuelvan en pantallas pequeñas */
+    }
+
+    .color-swatch {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%; /* Botones de color circulares */
+        border: 3px solid transparent;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .color-swatch.selected {
+        border-color: #e67e22; /* Borde naranja para el color seleccionado */
+        transform: scale(1.1); /* Ligeramente más grande */
+    }
+
+    /* Colores específicos de la paleta */
+    .color-swatch[data-color="#e74c3c"] { background-color: #e74c3c; } /* Rojo */
+    .color-swatch[data-color="#3498db"] { background-color: #3498db; } /* Azul */
+    .color-swatch[data-color="#2ecc71"] { background-color: #2ecc71; } /* Verde */
+    .color-swatch[data-color="#f1c40f"] { background-color: #f1c40f; } /* Amarillo */
+    .color-swatch[data-color="#9b59b6"] { background-color: #9b59b6; } /* Púrpura */
+    .color-swatch[data-color="#f39c12"] { background-color: #f39c12; } /* Naranja */
+    .color-swatch[data-color="#7f8c8d"] { background-color: #7f8c8d; } /* Gris */
+    .color-swatch[data-color="#8B4513"] { background-color: #8B4513; } /* Marrón */
+
+    #message {
+        margin-top: 20px;
+        font-weight: bold;
+        color: #333;
+    }
+</style>
+
+<div class="container py-5">
+    <div id="coloring-game-section">
+        <h6 class="display-6 fw-bold text-info mb-2">🎨 Mi Lienzo de Colores</h6>
+        <p class="lead">¡Elige un color y haz clic en las partes del dibujo para pintarlas!</p>
+
+        <div id="coloring-canvas-container">
+            <svg id="coloring-svg" width="400" height="300" viewBox="0 0 400 300">
+                <path id="svg-techo" class="colorable" d="M100 100 L200 50 L300 100 Z" />
+                <rect id="svg-pared" class="colorable" x="100" y="100" width="200" height="150" />
+                <rect id="svg-puerta" class="colorable" x="175" y="180" width="50" height="70" />
+                <circle id="svg-ventana" cx="150" cy="150" r="30" fill="lightblue" stroke="#34495e" stroke-width="2" />
+
+                <path class="outline" d="M100 100 L200 50 L300 100 Z" />
+                <rect class="outline" x="100" y="100" width="200" height="150" />
+                <rect class="outline" x="175" y="180" width="50" height="70" />
+                <circle class="outline" cx="150" cy="150" r="30" />
+            </svg>
+            </div>
+
+        <div id="color-palette">
+            <div class="color-swatch" data-color="#e74c3c"></div> <div class="color-swatch" data-color="#3498db"></div> <div class="color-swatch" data-color="#2ecc71"></div> <div class="color-swatch" data-color="#f1c40f"></div> <div class="color-swatch" data-color="#9b59b6"></div> <div class="color-swatch" data-color="#f39c12"></div> <div class="color-swatch" data-color="#7f8c8d"></div> <div class="color-swatch" data-color="#8B4513"></div> </div>
+
+        <button id="reset-button" class="btn btn-secondary btn-sm mt-3">Reiniciar Dibujo</button>
+
+        <p id="message" class="mt-3 lead text-muted">Selecciona un color y ¡a pintar!</p>
+    </div>
+</div>
+
+<script>
+    const coloringSvg = document.getElementById('coloring-svg');
+    const colorableParts = coloringSvg.querySelectorAll('.colorable'); // Todas las partes que se pueden pintar
+    const colorSwatches = document.querySelectorAll('.color-swatch');
+    const resetButton = document.getElementById('reset-button');
+    const messageElement = document.getElementById('message');
+
+    let selectedColor = '#e74c3c'; // Color inicial por defecto (rojo)
+
+    // Función para aplicar el color seleccionado a una parte del SVG
+    function paintPart(event) {
+        // Solo si se hizo clic en una parte que tenga la clase 'colorable'
+        if (event.target.classList.contains('colorable')) {
+            event.target.style.fill = selectedColor;
+            messageElement.textContent = `¡Pintaste el ${event.target.id.replace('svg-', '')} de ${selectedColor}!`;
+        }
+    }
+
+    // Función para seleccionar un color de la paleta
+    function selectColor(event) {
+        // Quitar la clase 'selected' de todos los colores
+        colorSwatches.forEach(swatch => swatch.classList.remove('selected'));
+        // Añadir la clase 'selected' al color clicado
+        event.target.classList.add('selected');
+        selectedColor = event.target.dataset.color;
+        messageElement.textContent = `Color seleccionado: ${selectedColor}. ¡Ahora haz clic en el dibujo!`;
+    }
+
+    // Función para reiniciar el dibujo a su estado original
+    function resetDrawing() {
+        colorableParts.forEach(part => {
+            part.style.fill = '#ecf0f1'; // Restaurar el color gris inicial
+        });
+        messageElement.textContent = '¡Dibujo reiniciado! Selecciona un color y vuelve a pintar.';
+        // Asegurarse de que el color rojo siga siendo el seleccionado por defecto o el último
+        colorSwatches.forEach(swatch => swatch.classList.remove('selected'));
+        document.querySelector('.color-swatch[data-color="#e74c3c"]').classList.add('selected');
+        selectedColor = '#e74c3c';
+    }
+
+    // --- Configuración de Eventos Iniciales ---
+
+    // 1. Añadir listeners para cada parte pintable del SVG
+    colorableParts.forEach(part => {
+        part.addEventListener('click', paintPart);
+    });
+
+    // 2. Añadir listeners para cada botón de color
+    colorSwatches.forEach(swatch => {
+        swatch.addEventListener('click', selectColor);
+    });
+
+    // 3. Añadir listener para el botón de Reiniciar
+    resetButton.addEventListener('click', resetDrawing);
+
+    // 4. Seleccionar el primer color por defecto al cargar la página
+    document.querySelector('.color-swatch[data-color="#e74c3c"]').classList.add('selected');
+    messageElement.textContent = `Color inicial: Rojo. ¡Haz clic en el dibujo para empezar!`;
+</script>
+
+<%- include('../layouts/footer.ejs') %>
+

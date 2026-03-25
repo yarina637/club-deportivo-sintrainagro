@@ -1,0 +1,671 @@
+<%- include('../layouts/header') %>
+<style>
+    /*==========================================================*/
+    /* ESTILOS DE IDENTIDAD FEMENINA (Fucsia/Magenta) */
+    /*==========================================================*/
+
+    /* 1. Paleta de identidad Femenina (Fucsia/Magenta) */
+    .text-liga-femenina {
+        color: #C2185B !important;
+        /* Magenta fuerte para títulos */
+    }
+
+    .btn-femenino {
+        background-color: #EC407A;
+        /* Rosa/Fucsia para botones de acción */
+        border-color: #EC407A;
+        color: white;
+    }
+
+    .btn-femenino:hover {
+        background-color: #AD1457;
+        border-color: #AD1457;
+    }
+
+    /* Pequeño ajuste para el botón de regreso */
+    .btn-regreso-femenino {
+        background-color: #6C757D;
+        /* Gris de Bootstrap Secondary */
+        border-color: #6C757D;
+    }
+
+    /* Tono para En Vivo (mantenemos el rojo para alerta, pero con la clase nueva) */
+    .live-arena-f {
+        background-color: #D32F2F !important;
+    }
+
+
+    /*==========================================================*/
+    /* ESTILOS DE COMPONENTES ESPECÍFICOS */
+    /*==========================================================*/
+
+    /* 2. Tabla de Posiciones Femenina */
+    .tabla-lideres-f {
+        border: 1px solid #F8BBD0;
+        /* Borde rosa suave */
+    }
+
+    /* Fila de Campeón (Reemplaza a .table-success en el HTML Femenino) */
+    .table-champion {
+        background-color: #FCE4EC !important;
+        /* Rosa pastel de fondo */
+        color: #880E4F !important;
+        /* Texto morado oscuro */
+    }
+
+    .table-champion td {
+        border-top: 1px solid #F06292;
+        /* Separador más notorio */
+    }
+
+    /* REGLA CLAVE PARA LA ALTURA DE IMAGEN (SOLICITADO) */
+    .carousel-femenino-img {
+        max-height: 400px;
+        /* Ajusta este valor para menos altura (ej: 300px) */
+        object-fit: cover;
+        /* Recorta la imagen sin distorsionarla */
+        width: 100%;
+    }
+
+    /* ÚNICO BLOQUE CSS para Controles del Carrusel Femenino */
+    .carousel-control-prev,
+    .carousel-control-next {
+        /* POSICIÓN Y VISIBILIDAD */
+        top: auto;
+        /* Ignora el centrado vertical */
+        transform: none;
+        /* Ignora la traducción vertical */
+        bottom: 0;
+        /* Pega al fondo */
+        z-index: 10;
+        /* Asegura que estén sobre las imágenes */
+        opacity: 1;
+        /* Asegura que no haya transparencia */
+
+        /* ESTÉTICA Y TAMAÑO */
+        height: 50px;
+        /* Altura visible del botón */
+        width: 60px;
+        /* Ancho visible del botón */
+        background-color: rgba(0, 0, 0, 0.7);
+        /* Fondo oscuro para contraste */
+    }
+
+    /* 🛑 REGLA CLAVE: Sobreescribe los iconos a Amarillo Fuerte (#FFD700) */
+    .carousel-control-prev-icon {
+        --bs-carousel-control-prev-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23FFD700'%3e%3cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3e%3c/svg%3e");
+        background-image: var(--bs-carousel-control-prev-icon);
+    }
+
+    .carousel-control-next-icon {
+        --bs-carousel-control-next-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23FFD700'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+        background-image: var(--bs-carousel-control-next-icon);
+    }
+
+    
+</style>
+
+<main class="container py-4">
+
+<div class="row mb-0 gx-2" >
+            <div class="col-lg-9 destacado-guerrera">
+
+            <div id="noticiasCarouselFemenino" class="carousel slide rounded shadow-lg" data-bs-ride="carousel">
+
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#noticiasCarouselFemenino" data-bs-slide-to="0"
+                        class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#noticiasCarouselFemenino" data-bs-slide-to="1"
+                        aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#noticiasCarouselFemenino" data-bs-slide-to="2"
+                        aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#noticiasCarouselFemenino" data-bs-slide-to="3"
+                        aria-label="Slide 4"></button>
+                    <button type="button" data-bs-target="#noticiasCarouselFemenino" data-bs-slide-to="4"
+                        aria-label="Slide 5"></button>
+                    <button type="button" data-bs-target="#noticiasCarouselFemenino" data-bs-slide-to="5"
+                        aria-label="Slide 6"></button>
+                    <button type="button" data-bs-target="#noticiasCarouselFemenino" data-bs-slide-to="6"
+                        aria-label="Slide 7"></button>
+                    <button type="button" data-bs-target="#noticiasCarouselFemenino" data-bs-slide-to="7"
+                        aria-label="Slide 8"></button>
+                    <button type="button" data-bs-target="#noticiasCarouselFemenino" data-bs-slide-to="8"
+                        aria-label="Slide 9"></button>
+                    <button type="button" data-bs-target="#noticiasCarouselFemenino" data-bs-slide-to="9"
+                        aria-label="Slide 10"></button>
+                    <button type="button" data-bs-target="#noticiasCarouselFemenino" data-bs-slide-to="10"
+                        aria-label="Slide 11"></button>
+                    <button type="button" data-bs-target="#noticiasCarouselFemenino" data-bs-slide-to="11"
+                        aria-label="Slide 12"></button>
+                    <button type="button" data-bs-target="#noticiasCarouselFemenino" data-bs-slide-to="12"
+                        aria-label="Slide 13"></button>
+                    <button type="button" data-bs-target="#noticiasCarouselFemenino" data-bs-slide-to="13"
+                        aria-label="Slide 14"></button>
+                    <button type="button" data-bs-target="#noticiasCarouselFemenino" data-bs-slide-to="14"
+                        aria-label="Slide 15"></button>
+                    <button type="button" data-bs-target="#noticiasCarouselFemenino" data-bs-slide-to="15"
+                        aria-label="Slide 16"></button>
+                </div>
+
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="/images/Deportivo/femenino/fem/fem (12).jpeg"
+                            class="d-block w-100 carousel-femenino-img" alt="Equipo ganador de la copa femenina">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/images/Deportivo/femenino/fem/fem (2).jpeg"
+                            class="d-block w-100 carousel-femenino-img" alt="Jugadora estrella celebrando">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/images/Deportivo/femenino/fem/Fem (3).jpeg"
+                            class="d-block w-100 carousel-femenino-img" alt="Calendario de partidos femeninos">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/images/Deportivo/femenino/fem/fem (5).jpeg"
+                            class="d-block w-100 carousel-femenino-img" alt="Jugadora estrella celebrando">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/images/Deportivo/femenino/fem/fem (12).jpeg"
+                            class="d-block w-100 carousel-femenino-img" alt="Calendario de partidos femeninos">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/images/Deportivo/femenino/fem/fem (19).jpeg"
+                            class="d-block w-100 carousel-femenino-img" alt="Imagen adicional 10">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/images/Deportivo/femenino/fem/fem (21).jpeg"
+                            class="d-block w-100 carousel-femenino-img" alt="Imagen adicional 11">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/images/Deportivo/femenino/fem/fem (23).jpeg"
+                            class="d-block w-100 carousel-femenino-img" alt="Imagen adicional 13">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/images/Deportivo/femenino/fem/fem (24).jpeg"
+                            class="d-block w-100 carousel-femenino-img" alt="Imagen adicional 14">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/images/Deportivo/femenino/fem/fem (25).jpeg"
+                            class="d-block w-100 carousel-femenino-img" alt="Imagen adicional 15">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/images/Deportivo/femenino/fem/fem (26).jpeg"
+                            class="d-block w-100 carousel-femenino-img" alt="Imagen adicional 16">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/images/Deportivo/femenino/fem/fem (30).jpeg"
+                            class="d-block w-100 carousel-femenino-img" alt="Imagen adicional 17">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/images/Deportivo/femenino/fem/fem (32).jpeg"
+                            class="d-block w-100 carousel-femenino-img" alt="Imagen adicional 18">
+                    </div>
+                </div>
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#noticiasCarouselFemenino"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Anterior</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#noticiasCarouselFemenino"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Siguiente</span>
+                </button>
+            </div>
+
+            <p class="text-muted small mt-2 mb-4">
+
+                <i class="fas fa-camera me-1"></i> Estos son los equipos participantes en la 1ra Copa Femenina de
+                futbol en las fincas bananeras de Urabá. "Únete a la celebración del deporte y la sororidad. Hoy
+                iniciamos una tradición que inspirará a todas las futuras generaciones. ¡No te lo pierdas!"
+            </p>
+
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <a href="/uraba/femenino" class="enlace-power-play text-decoration-none">
+                        <h5 class="titulo-power-play display-6 fw-bold text-liga-femenina">¡Histórico! **1er Torneo
+                            Femenino de Fútbol interfincas**
+                        </h5>
+                    </a>
+                    <p class="resumen-noticia lead mt-2">
+                        **"Un día que marca un antes y un después para la comunidad. Celebramos la pasión, el
+                        talento y el inicio de una nueva tradición deportiva en el fútbol femenino de nuestras
+                        fincas."
+                    </p>
+                </div>
+                <div class="col-md-6 d-flex flex-column align-items-end justify-content-md-end pt-3 pt-md-0">
+                    <h6 class="titulo-power-play fs-4 fw-bold text-dark">
+                        "Superando barreras y creando espacios de igualdad. Nuestras deportistas demuestran que el
+                        talento no tiene género. ¡Apoyemos este gran paso!"
+                    </h6>
+                    <p class="resumen-noticia lead mt-2">
+                        "¡El futuro del fútbol es femenino! Ven a ser testigo de la garra, la técnica y la energía
+                        de nuestras jugadoras en este primer encuentro oficial. La historia se escribe en la
+                        cancha."
+                    </p>
+                    <!-- <a href="/uraba/femenino" class="btn btn-femenino btn-lg">Leer Reportaje Completo</a> -->
+                </div>
+            </div>
+        </div>
+
+<div class="col-lg-3">
+
+            <div class="card mb-4 bg-primary text-white text-center shadow-sm">
+                <div class="card-body p-1">
+                    <h6 class="fw-bold mb-1 small">¿Te quieres inscribir?</h6>
+                    <a href="/uraba/registro" class="btn btn-warning btn-sm fw-bold">
+                        Portal Sintrainagro
+                    </a>
+                    <p class="text-white-50 mt-1 mb-0" style="font-size: 0.7rem;">Inscríbete o actualiza tu
+                        información.</p>
+                </div>
+            </div>
+
+            <div class="mb-4 columna-agenda-compacta">
+                <div class="barra-resultados live p-2 mb-3 rounded text-white live-arena-f text-center">
+                    <span class="fw-bold"><i class="fas fa-circle live-dot me-1"></i> EN VIVO: Club Las Potras vs
+                        Deportivo Poderosa</span>
+                </div>
+            </div>
+
+<a href="/uraba/galeria-fincas" class="btn btn-warning w-100 fw-bold mb-4 shadow" id="btn-ver-fincas-link">
+    Galería de Equipos Participantes 🏆
+</a>
+<hr>
+
+            <div class="card mb-4 bg-white border-femenino-salud shadow-sm text-center">
+                <div class="card-body p-2">
+                    <h5 class="fw-bold mb-1 text-liga-femenina"><i class="fas fa-heartbeat me-1"></i> Bienestar y Salud</h5>
+                    <p class="small text-muted mb-2">Entrena tu cuerpo y tu mente para el alto rendimiento.</p>
+                    <a href="/salud/inicio" class="btn btn-sm btn-femenino fw-bold">
+                        Portal de Salud Integral
+                    </a>
+                </div>
+            </div>
+            <div class="mb-4 columna-goleadoras-compacta p-3 rounded border shadow-sm">
+                <h4 class="titulo-columna-agenda text-center mb-3 fw-bold text-danger">⚽Top Goleadoras</h4>
+                <ul class="list-group list-group-flush small">
+                    <li class="list-group-item d-flex list-group-item-danger justify-content-between align-items-center">
+                        <span class="fw-semibold">1. Valentina Torres (Hacienda)</span>
+                        <span class="badge bg-danger rounded-pill">12 Goles</span>
+                    </li>
+                    <li class="list-group-item d-flex list-group-item-warnin justify-content-between align-items-center">
+                        <span class="fw-semibold">2. Sofía Ruiz (Villa Lupe)</span>
+                        <span class="badge bg-secondary rounded-pill">10 Goles</span>
+                    </li>
+                    <li class="list-group-item list-group-item-success d-flex justify-content-between align-items-center">
+                        <span class="fw-semibold">3. Camila López (Matogrosso)</span>
+                        <span class="badge bg-secondary rounded-pill">9 Goles</span>
+                    </li>
+                </ul>
+                <div class="text-center mt-3">
+                    </div>
+            </div>
+        </div>    </div>
+
+<div class="row align-items-center">
+            <div class="col-md-6">
+
+            <div class="row align-items-start mb-4">
+                <div class="col-4">
+                    <a href="/uraba/femenino/segunda-noticia" class="d-block w-100">
+                        <img src="/images/Deportivo/femenino/fem/fem01.jpeg"
+                            class="img-fluid rounded-circle shadow w-100"
+                            style="max-height: 620px; object-fit: cover;"
+                            alt="Never Ortiz, encargado de deportes de Sintrainagro">
+                    </a>
+                </div>
+
+                <div class="col-8">
+                    <blockquote class="blockquote ps-0 text-dark">
+                        <p class="mb-0 fs-6 fw-bold">
+                            "Este es solo el inicio de algo maravilloso para nuestro fútbol femenino. ¡Talento sin género!"
+                        </p>
+                        <footer class="blockquote-footer mt-1">
+                            <cite title="Fuente">Never Ortiz, Encargado de Deportes (Sintrainagro)</cite>
+                        </footer>
+                    </blockquote>
+                </div>
+            </div>
+
+            <a href="/uraba/femenino/segunda-noticia" class="enlace-power-play text-decoration-none d-block">
+                <h5 class="titulo-power-play display-6 fw-bold text-liga-femenina">
+                    ¡Mensaje de Apertura! El apoyo de Sintrainagro al Torneo Femenino
+                </h5>
+            </a>
+            <p class="resumen-noticia lead mt-2">
+                La pasión y el esfuerzo de nuestras deportistas marcan una nueva era en el deporte de la región. Lee
+                el mensaje completo de bienvenida de nuestro encargado de deportes.
+            </p>
+            <!-- <a href="/uraba/femenino/segunda-noticia" class="btn btn-femenino btn-lg mt-3">Leer Reportaje Completo</a> -->
+        </div>
+
+        <div class="col-md-6 pt-3 pt-md-0">
+            <div id="noticiasCarouselFemenino2" class="carousel slide rounded shadow-lg" data-bs-ride="carousel">
+
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#noticiasCarouselFemenino2" data-bs-slide-to="0"
+                        class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#noticiasCarouselFemenino2" data-bs-slide-to="1"
+                        aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#noticiasCarouselFemenino2" data-bs-slide-to="2"
+                        aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#noticiasCarouselFemenino2" data-bs-slide-to="3"
+                        aria-label="Slide 4"></button>
+                    <button type="button" data-bs-target="#noticiasCarouselFemenino2" data-bs-slide-to="4"
+                        aria-label="Slide 5"></button>
+                    <button type="button" data-bs-target="#noticiasCarouselFemenino2" data-bs-slide-to="5"
+                        aria-label="Slide 6"></button>
+                    <button type="button" data-bs-target="#noticiasCarouselFemenino2" data-bs-slide-to="6"
+                        aria-label="Slide 7"></button>
+                    <button type="button" data-bs-target="#noticiasCarouselFemenino2" data-bs-slide-to="7"
+                        aria-label="Slide 8"></button>
+                </div>
+
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="/images/Deportivo/femenino/fem/fem (14).jpeg"
+                            class="d-block w-100 carousel-femenino-img" alt="Descripción de la imagen 1/8">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/images/Deportivo/femenino/fem/fem (15).jpeg"
+                            class="d-block w-100 carousel-femenino-img" alt="Descripción de la imagen 2/8">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/images/Deportivo/femenino/fem/fem (18).jpeg"
+                            class="d-block w-100 carousel-femenino-img" alt="Descripción de la imagen 4/8">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/images/Deportivo/femenino/fem/fem (33).jpeg"
+                            class="d-block w-100 carousel-femenino-img" alt="Descripción de la imagen 5/8">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/images/Deportivo/femenino/fem/fem (34).jpeg"
+                            class="d-block w-100 carousel-femenino-img" alt="Descripción de la imagen 6/8">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/images/Deportivo/femenino/fem/fem (25).jpeg"
+                            class="d-block w-100 carousel-femenino-img" alt="Descripción de la imagen 7/8">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/images/Deportivo/femenino/fem/fem1.jpeg"
+                            class="d-block w-100 carousel-femenino-img" alt="Descripción de la imagen 8/8">
+                    </div>
+                </div>
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#noticiasCarouselFemenino2"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Anterior</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#noticiasCarouselFemenino2"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Siguiente</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-2">
+
+    <div class="row seccion-tres-columnas-agenda">
+        <div class="col-md-4 mb-4">
+            <h3 class="titulo-jornada-f text-center">📅 Próxima Jornada Femenina</h3>
+            <div class="card p-3 border rounded shadow-sm">
+                <h4 class="fw-bold mb-3 text-center text-liga-femenina">Próximos Partidos ⚽</h4>
+
+                <div class="partido-item border-bottom py-2">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span class="fecha small text-muted"><i class="far fa-calendar-alt me-1"></i>25/OCT</span>
+                        <span class="hora small text-muted"><i class="far fa-clock me-1"></i> 6:00 PM</span>
+                    </div>
+                    <p class="equipos mb-1 fw-semibold">Las Potras vs. Deportivo Poderosa</p>
+                    <span class="cancha small text-success fw-bold"><i class="fas fa-map-marker-alt me-1"></i>
+                        Cancha Sintética #1</span>
+                </div>
+
+                <div class="partido-item border-bottom py-2">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span class="fecha small text-muted"><i class="far fa-calendar-alt me-1"></i> 26/OCT</span>
+                        <span class="hora small text-muted"><i class="far fa-clock me-1"></i> 7:30 PM</span>
+                    </div>
+                    <p class="equipos mb-1 fw-semibold">Fuerza Femenina vs. Las Guerreras</p>
+                    <span class="cancha small text-success fw-bold"><i class="fas fa-map-marker-alt me-1"></i>
+                        Estadio Municipal</span>
+                </div>
+
+                <div class="partido-item pt-2">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span class="fecha small text-muted"><i class="far fa-calendar-alt me-1"></i> 27/OCT</span>
+                        <span class="hora small text-muted"><i class="far fa-clock me-1"></i> 6:00 PM</span>
+                    </div>
+                    <p class="equipos mb-1 fw-semibold">Amazonas vs. Las Leones</p>
+                    <span class="cancha small text-success fw-bold"><i class="fas fa-map-marker-alt me-1"></i>
+                        Cancha #2 Comfama</span>
+                </div>
+
+                <div class="text-center mt-3">
+                    <a href="/uraba/femenino/calendario-completo" class="btn btn-sm btn-outline-secondary">Ver
+                        Calendario Completo</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-4 mb-4">
+            <h5 class="titulo-columna-agenda text-center">🎥 Últimos Resúmenes Deportivos</h5>
+
+            <div class="card shadow-sm border-0">
+                <div style="width: 100%; max-height: 400px; overflow: hidden; position: relative;">
+                    <video class="rounded-top" controls poster="/images/Deportivo/video-highlight-placeholder.jpg"
+                        style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                       <source src="/images/Deportivo/femenino/fem/Invitacion.mp4" type="video/mp4">
+                       <!-- http://tudominio.com/images/Deportivo/Mujeres.mp4) -->
+                        Tu navegador no soporta la etiqueta de video.
+                    </video>
+                </div>
+                <div class="card-body p-2 bg-light text-center">
+                    <p class="card-text small mb-0 fw-bold">Invitación de la 1ra Copa Femenina de futbol</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <h5 class="titulo-columna-agenda text-center">⭐ Historias de **Liderazgo**</h5>
+
+            <div class="card shadow-sm border-0">
+                <img src="/images/Deportivo/historiaexito_femenina.jpg" class="card-img-top img-fluid"
+                    alt="Imagen de una colaboradora sonriendo en el trabajo o jugando">
+
+                <div class="card-body bg-light text-center p-3">
+                    <h5 class="card-title fw-bold text-success">Testimonio de Éxito y Superación</h5>
+                    <p class="card-text small text-muted mb-3">
+                        Conoce el testimonio de cómo Sintrainagro apoya el talento femenino y la superación de una
+                        afiliada.
+                    </p>
+                    <a href="/uraba/femenino/historias-de-exito-1"
+                        class="btn btn-sm btn-success fw-bold mb-2 d-block mx-auto">
+                        <i class="fas fa-heart me-1"></i> Leer Testimonio
+                    </a>
+                    <a href="/uraba/femenino/enviar-historia"
+                        class="btn btn-sm btn-outline-success fw-bold d-block mx-auto">
+                        <i class="fas fa-edit me-1"></i> Cuéntanos TU Historia
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <hr class="my-4">
+<div class="row seccion-tres-columnas-empresa">
+
+    <div class="col-md-4 mb-4">
+        <h3 class="titulo-columna-agenda text-center">⭐ Más Historias de Éxito</h3>
+
+        <div class="card shadow-sm border-0">
+            <img src="/images/Deportivo/historiaexito3.jpg" class="card-img-top img-fluid"
+                alt="Imagen de una colaboradora sonriendo en el trabajo o jugando">
+
+            <div class="card-body bg-light text-center p-3">
+                <h5 class="card-title fw-bold text-success">Testimonio de Éxito Laboral</h5>
+                <p class="card-text small text-muted mb-3">
+                    Conoce cómo el apoyo de Sintrainagro impulsó el desarrollo profesional y personal de una
+                    afiliada.
+                </p>
+                <a href="/uraba/femenino/historias-de-exito-2"
+                    class="btn btn-sm btn-success fw-bold mb-2 d-block mx-auto">
+                    <i class="fas fa-heart me-1"></i> Leer Testimonio
+                </a>
+                <a href="/uraba/femenino/enviar-historia"
+                    class="btn btn-sm btn-outline-success fw-bold d-block mx-auto">
+                    <i class="fas fa-edit me-1"></i> Cuéntanos TU Historia
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <h3 class="titulo-columna-agenda text-center">🏆 Tabla de Posiciones</h3>
+        <div class="tabla-posiciones-compacta p-3 border rounded shadow-sm tabla-lideres-f">
+            <h4 class="fw-bold mb-3 text-center text-liga-femenina">Copa Femenina - Grupo Único</h4>
+
+            <div class="table-responsive">
+                <table class="table table-sm text-center mb-0 small">
+                    <thead class="bg-light">
+                        <tr>
+                            <th scope="col" class="text-start">#</th>
+                            <th scope="col" class="text-start">Equipo</th>
+                            <th scope="col">PJ</th>
+                            <th scope="col">PG</th>
+                            <th scope="col">PE</th>
+                            <th scope="col">PP</th>
+                            <th scope="col">Pts</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="table-champion fw-bold">
+                            <td class="text-start">1</td>
+                            <td class="text-start">Amazonas</td>
+                            <td>8</td>
+                            <td>7</td>
+                            <td>1</td>
+                            <td>0</td>
+                            <td>22</td>
+                        </tr>
+                        <tr>
+                            <td class="text-start">2</td>
+                            <td class="text-start">Fuerza Femenina</td>
+                            <td>8</td>
+                            <td>5</td>
+                            <td>2</td>
+                            <td>1</td>
+                            <td>17</td>
+                        </tr>
+                        <tr>
+                            <td class="text-start">3</td>
+                            <td class="text-start">Las Potras</td>
+                            <td>8</td>
+                            <td>4</td>
+                            <td>1</td>
+                            <td>3</td>
+                            <td>13</td>
+                        </tr>
+                        <tr>
+                            <td class="text-start">4</td>
+                            <td class="text-start">Las Guerreras</td>
+                            <td>8</td>
+                            <td>3</td>
+                            <td>1</td>
+                            <td>4</td>
+                            <td>10</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="text-center small text-muted mt-2">
+                **PJ**: Jugados, **PG**: Ganados, **PE**: Empatados, **PP**: Perdidos.
+            </p>
+            <div class="text-center mt-3">
+                <a href="/uraba/femenino/tablas-completas" class="btn btn-sm btn-outline-secondary">Ver Tablas
+                    Completas</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <h3 class="titulo-columna-agenda text-center">🎥 Multimedia y Oportunidades</h3>
+
+        <div class="card mb-4 shadow-sm">
+            <div class="embed-responsive embed-responsive-16by9">
+                <img src="/images/Deportivo/final_femenina_placeholder.jpg"
+                    alt="Placeholder de video de la final femenina" class="img-fluid embed-responsive-item"
+                    style="cursor: pointer;"
+                    onclick="window.location.href='https://www.youtube.com/watch?v=EjemploDeVideoFinalFemenina'">
+            </div>
+            <div class="card-body p-3">
+                <h5 class="card-title fw-bold text-center">¡El Resumen de la Gran Final Femenina!</h5>
+                <p class="card-text small text-muted text-center mb-0">
+                    Revive los **mejores goles** y la emoción del partido que definió a las campeonas.
+                </p>
+            </div>
+        </div>
+
+        <hr class="my-3">
+
+        <div class="card bg-success text-white text-center p-3 shadow-sm mb-4">
+            <div class="card-body">
+                <h4 class="card-title fw-bold">📢 ¡Únete a la Fuerza Laboral!</h4>
+                <p class="card-text mb-2">
+                    ¿Buscas un reto profesional en Urabá? Conoce nuestras vacantes disponibles.
+                </p>
+                <a href="/uraba/trabaja-con-nosotros" class="btn btn-warning fw-bold mt-2">
+                    <i class="fas fa-user-plus me-2"></i> Ver Vacantes y Postúlate
+                </a>
+            </div>
+        </div>
+
+        <div class="text-center mt-3">
+            <a href="/uraba/femenino/entrevistas-videos" class="btn btn-sm btn-outline-dark">Ver Videos y
+                Entrevistas</a>
+        </div>
+    </div>
+
+</div> <div class="text-center mt-5 mb-3">
+    <a href="/" class="btn-regreso-femenino btn btn-lg btn-secondary">
+        <i class="fas fa-venus-mars me-2"></i> Volver a la **Cancha** General de Urabá
+    </a>
+</div>
+
+</main>
+
+<div class="modal fade" id="modalDestacadoFemenino" tabindex="-1" aria-labelledby="modalDestacadoFemeninoLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body p-0 border-0">
+                <a href="/uraba/femenino" class="d-block w-100 text-decoration-none">
+                    <img src="/images/Deportivo/portada_1ra copa femenina de futbol.png" class="img-fluid rounded"
+                        alt="Portada de la 1ra Copa Femenina de Futbol">
+                </a>
+
+                <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-3 shadow"
+                    data-bs-dismiss="modal" aria-label="Cerrar"
+                    style="z-index: 1056; border-radius: 50%; width: 40px; height: 40px; padding: 0;">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <script>
+    // Se cambia el ID del carrusel y del modal para diferenciarlos del masculino
+    document.addEventListener('DOMContentLoaded', function () {
+        const miModal = new bootstrap.Modal(document.getElementById('modalDestacadoFemenino'));
+        miModal.show();
+    });
+</script> -->
+<%- include('../layouts/footer') %>
