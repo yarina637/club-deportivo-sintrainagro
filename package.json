@@ -1,27 +1,19 @@
 {
-  "name": "club-deportivo-sintrainagro",
+  "name": "clubdeportivo",
   "version": "1.0.0",
-  "private": true,
-  "description": "Portal deportivo y sistema de gestión para el Club Sintrainagro - Urabá",
-  "main": "./bin/www",
+  "description": "Pagina web de deportes con historial de contenido",
+  "main": "index.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon ./bin/www"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "cookie-parser": "~1.4.4",
-    "debug": "~2.6.9",
-    "ejs": "^3.1.10",
-    "express": "^4.21.2",
-    "http-errors": "~1.6.3",
-    "mongoose": "^8.10.0",
-    "morgan": "^1.10.1",
-    "path": "^0.12.7"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.0"
-  },
-  "engines": {
-    "node": ">=18.0.0"
+    "ejs": "^5.0.1",
+    "express": "^5.2.1",
+    "multer": "^2.1.1",
+    "mysql2": "^3.20.0"
   }
 }
