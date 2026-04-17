@@ -1,6 +1,0 @@
-node_modules/
-*.docx
-*.pptx
-*.xlsx
-.DS_Store
-package-lock.json
