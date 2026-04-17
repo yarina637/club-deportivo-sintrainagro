@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Finca | Club Deportivo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .font-oswald { font-family: 'Oswald', sans-serif; }
+    </style>
+</head>
+<body class="bg-[#e2e8f0] text-slate-900 font-sans">
+
+<!-- CABECERA (Reutilizando el estilo institucional) -->
+<header style="background-color: #064e3b;" class="text-white shadow-xl border-b-4 border-yellow-500 sticky top-0 z-50">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <div class="bg-white p-1.5 rounded-xl shadow-lg transform -rotate-2">
+                <img src="/img/logoclub.png" alt="Logo" class="h-16 w-auto">
+            </div>
+            <h1 class="font-oswald text-2xl font-black uppercase italic tracking-tighter">
+                Ficha de <span class="text-yellow-400">Equipo</span>
+            </h1>
+        </div>
+        <button onclick="window.history.back()" class="bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest border border-white/20 transition-all">
+            Volver
+        </button>
+    </div>
+</header>
+
+<main class="container mx-auto px-4 py-10 max-w-6xl">
+
+    <!-- SECCIÓN 1: CABECERA DEL EQUIPO -->
+    <section class="bg-white rounded-[2.5rem] shadow-2xl overflow-hidden border border-slate-300 mb-12">
+        <div class="flex flex-col md:flex-row">
+            <!-- Foto Grupal o Logo Grande -->
+            <div class="md:w-1/3 bg-green-900 h-64 md:h-auto relative overflow-hidden">
+                <img src="/img/finca-ejemplo.jpg" alt="Finca" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700">
+                <div class="absolute inset-0 bg-gradient-to-t from-green-900 via-transparent to-transparent"></div>
+            </div>
+
+            <!-- Datos de la Finca -->
+            <div class="md:w-2/3 p-8 flex flex-col justify-center">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-yellow-500 text-green-900 px-3 py-1 rounded-full text-[10px] font-black uppercase italic">Equipo Oficial</span>
+                    <span class="text-slate-400 font-bold text-[10px] uppercase tracking-widest">ID: #00<%= finca.id %></span>
+                </div>
+                <h2 class="font-oswald text-6xl font-black uppercase italic text-green-900 leading-none mb-6 tracking-tighter">
+                    <%= finca.nombre %>
+                </h2>
+                
+                <!-- Stats Rápidas -->
+                <div class="grid grid-cols-3 gap-4 border-t border-slate-100 pt-6">
+                    <div class="text-center md:text-left">
+                        <p class="text-[9px] uppercase font-black text-slate-400 tracking-widest">Partidos</p>
+                        <p class="font-oswald text-2xl font-bold text-slate-800">12</p>
+                    </div>
+                    <div class="text-center md:text-left border-x border-slate-100 px-4">
+                        <p class="text-[9px] uppercase font-black text-slate-400 tracking-widest">Puntos</p>
+                        <p class="font-oswald text-2xl font-bold text-green-700">28</p>
+                    </div>
+                    <div class="text-center md:text-left">
+                        <p class="text-[9px] uppercase font-black text-slate-400 tracking-widest">Goles</p>
+                        <p class="font-oswald text-2xl font-bold text-yellow-600">34</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN 2: PLANTILLA DE JUGADORES -->
+    <div class="flex items-center gap-3 mb-8 border-l-4 border-green-800 pl-4">
+        <h3 class="font-oswald text-4xl uppercase italic font-black text-slate-800 tracking-tighter">
+            Plantilla <span class="text-green-700">Actual</span>
+        </h3>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-20">
+        
+        <!-- TARJETA DE JUGADOR (Repetir con .forEach) -->
+        <% jugadores.forEach(jugador => { %>
+        <div class="group bg-white rounded-3xl border border-slate-300 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden">
+            <div class="aspect-[4/5] bg-slate-100 relative overflow-hidden">
+                <img src="<%= jugador.foto || '/img/placeholder-player.png' %>" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                <!-- Número del Dorsal -->
+                <div class="absolute top-4 right-4 bg-yellow-500 text-green-900 font-oswald text-2xl font-black italic px-2 py-1 rounded-xl shadow-lg">
+                    <%= jugador.dorsal || '10' %>
+                </div>
+            </div>
+            <div class="p-4 text-center">
+                <p class="text-[8px] font-black text-green-600 uppercase tracking-widest mb-1"><%= jugador.posicion %></p>
+                <h4 class="font-oswald text-lg uppercase font-bold text-slate-800 leading-none truncate">
+                    <%= jugador.nombre %>
+                </h4>
+                <div class="mt-3 flex justify-center gap-2">
+                    <span class="bg-slate-100 text-slate-500 text-[8px] px-2 py-1 rounded font-bold uppercase italic"><%= jugador.goles %> Goles</span>
+                </div>
+            </div>
+        </div>
+        <% }) %>
+
+    </div>
+
+    <!-- SECCIÓN 3: ÚLTIMOS RESULTADOS (Tipo Ticket Compacto) -->
+    <div class="max-w-3xl mx-auto">
+        <h3 class="font-oswald text-2xl uppercase italic font-black text-center text-slate-400 mb-6 tracking-widest">Últimos Resultados</h3>
+        <div class="space-y-4">
+            <!-- Resultado 1 -->
+            <div class="bg-white/60 backdrop-blur-sm rounded-2xl border border-slate-300 p-4 flex items-center justify-between shadow-sm">
+                <span class="text-[9px] font-black text-slate-400 uppercase">Jornada 08</span>
+                <div class="flex items-center gap-4">
+                    <span class="font-oswald text-lg font-bold uppercase"><%= finca.nombre %></span>
+                    <div class="bg-green-900 text-white font-oswald px-3 py-1 rounded-lg text-xl italic font-black">2 - 1</div>
+                    <span class="font-oswald text-lg font-bold uppercase text-slate-400">Finca El Sol</span>
+                </div>
+                <span class="text-[10px] font-bold text-green-600 uppercase italic">Victoria</span>
+            </div>
+        </div>
+    </div>
+
+</main>
+<footer class="bg-[#052e21] text-white pt-16 pb-8 mt-20 border-t-8 border-yellow-500">
+    <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
+            
+            <div class="text-center md:text-left">
+                <h4 class="font-oswald uppercase italic text-yellow-500 mb-2 tracking-widest text-lg font-bold">Club Deportivo</h4>
+                <p class="text-green-100/40 text-[11px] leading-relaxed">
+                    Portal oficial de noticias y resultados.<br>
+                    Sintrainagro 2026.
+                </p>
+            </div>
+
+            <div class="flex flex-col items-center justify-center">
+                <div class="bg-white/5 p-6 rounded-3xl border border-white/10 backdrop-blur-sm flex justify-center gap-8 w-full">
+                    <a href="https://www.comfama.com" target="_blank" rel="noopener noreferrer" class="transition-transform hover:scale-110">
+                        <img src="/img/comfama.png" alt="Comfama" class="h-10 w-auto">
+                    </a>
+                    <a href="https://www.comfenalcoantioquia.com.co" target="_blank" rel="noopener noreferrer" class="transition-transform hover:scale-110">
+                        <img src="/img/comfenalco.png" alt="Comfenalco" class="h-10 w-auto">
+                    </a>
+                </div>
+                </div>
+
+            <div class="text-center md:text-right">
+                <p class="text-2xl font-black uppercase tracking-widest text-white italic leading-none">Sintrainagro</p>
+                <div class="h-1 w-12 bg-yellow-500 ml-auto my-3 hidden md:block"></div>
+                <p class="text-green-500 text-[10px] uppercase font-bold tracking-wider">
+                    © 2026 Urabá: <span class="text-white">Tierra de campeones</span>
+                </p>
+            </div>
+
+        </div>
+
+        <div class="mt-12 pt-8 border-t border-white/5 text-center">
+            <p class="text-[9px] text-white/20 uppercase tracking-[0.5em]">Desarrollo Técnico - Comité Deportivo</p>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestra Historia | Club Deportivo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .font-oswald { font-family: 'Oswald', sans-serif; }
+        .bg-pattern { background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png'); }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-900 font-sans">
+
+<header style="background-color: #064e3b;" class="text-white shadow-2xl border-b-4 border-yellow-500">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <img src="/img/logoclub.png" alt="Logo" class="h-16">
+            <h1 class="font-oswald text-2xl font-black uppercase italic">Nuestra <span class="text-yellow-400">Identidad</span></h1>
+        </div>
+                <button onclick="window.history.back()" class="bg-[#0a6d52] text-white px-4 py-2 rounded-xl text-[10px] font-black uppercase border border-[#10a37b]">Volver</button>
+    </div>
+</header>
+
+<main>
+    <section class="relative py-24 bg-green-950 text-white overflow-hidden bg-pattern">
+        <div class="absolute inset-0 bg-gradient-to-r from-green-900 to-transparent opacity-90"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-3xl">
+                <span class="bg-yellow-500 text-green-950 px-3 py-1 rounded-full text-[10px] font-black uppercase italic mb-6 inline-block">Desde el 18 de noviembre 2000</span>
+                <h2 class="font-oswald text-6xl font-bold uppercase italic leading-none mb-8">Más que un club, <br><span class="text-yellow-400">una familia obrera</span></h2>
+                <p class="text-green-100 text-lg leading-relaxed opacity-80">
+                    Nacimos con el sudor y la pasión de los trabajadores de Urabá. Desde nuestra fundación, hemos sido el epicentro del deporte regional, transformando vidas a través del fútbol y la unión sindical. 
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container mx-auto px-6 -mt-12 mb-20">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="bg-white p-10 rounded-[2rem] shadow-2xl border-b-8 border-green-700 transform hover:-translate-y-2 transition-transform">
+                <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center text-3xl mb-6">🎯</div>
+                <h3 class="font-oswald text-3xl font-bold uppercase italic text-green-900 mb-4">Nuestra Misión</h3>
+                <p class="text-slate-600 leading-relaxed">
+                    Fomentar la recreación, el deporte y la cultura entre los trabajadores bananeros y sus familias, promoviendo un estilo de vida saludable y fortaleciendo los lazos de fraternidad en la región de Urabá.
+                </p>
+            </div>
+
+            <div class="bg-white p-10 rounded-[2rem] shadow-2xl border-b-8 border-yellow-500 transform hover:-translate-y-2 transition-transform">
+                <div class="w-16 h-16 bg-yellow-100 rounded-2xl flex items-center justify-center text-3xl mb-6">🚀</div>
+                <h3 class="font-oswald text-3xl font-bold uppercase italic text-green-900 mb-4">Nuestra Visión</h3>
+                <p class="text-slate-600 leading-relaxed">
+                    Ser reconocidos para el 2030 como la organización deportiva líder en Antioquia por nuestra capacidad de integración social y excelencia en la gestión de torneos de alto impacto comunitario.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-slate-200 py-20 border-y border-slate-300">
+        <div class="container mx-auto px-6 text-center">
+            <h3 class="font-oswald text-4xl font-black uppercase italic text-slate-400 mb-16 tracking-widest italic">Valores del Juego Limpio</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="bg-white p-8 rounded-2xl shadow-sm">
+                    <span class="text-4xl block mb-4">🤝</span>
+                    <span class="font-oswald font-bold uppercase text-slate-800">Unidad</span>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-sm">
+                    <span class="text-4xl block mb-4">🛡️</span>
+                    <span class="font-oswald font-bold uppercase text-slate-800">Respeto</span>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-sm">
+                    <span class="text-4xl block mb-4">⚡</span>
+                    <span class="font-oswald font-bold uppercase text-slate-800">Pasión</span>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-sm">
+                    <span class="text-4xl block mb-4">🏆</span>
+                    <span class="font-oswald font-bold uppercase text-slate-800">Disciplina</span>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="bg-green-950 text-white py-12 text-center border-t-8 border-yellow-500">
+    <p class="font-oswald uppercase tracking-[0.4em] text-xs opacity-50">Sintrainagro - Tierra de Campeones</p>
+</footer>
+
+</body>
+</html>

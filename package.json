@@ -1,0 +1,19 @@
+{
+  "name": "clubdeportivo",
+  "version": "1.0.0",
+  "description": "Pagina web de deportes con historial de contenido",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^5.0.1",
+    "express": "^5.2.1",
+    "multer": "^2.1.1",
+    "mysql2": "^3.20.0"
+  }
+}

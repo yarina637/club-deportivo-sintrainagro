@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería por Fincas | Club Deportivo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .font-oswald { font-family: 'Oswald', sans-serif; }
+        #modalZoom { transition: all 0.3s ease-in-out; }
+    </style>
+</head>
+<body class="bg-[#e2e8f0] text-slate-800 font-sans">
+
+<header style="background-color: #064e3b;" class="text-white shadow-xl border-b-4 border-yellow-500 sticky top-0 z-50">
+    <div class="container mx-auto px-6 py-4">
+        <div class="flex justify-between items-center">
+            <div class="flex items-center gap-6">
+                <div class="bg-white p-2 rounded-2xl shadow-xl transform -rotate-2 hover:rotate-0 transition-all">
+                    <img src="/img/logoclub.png" alt="Logo Club" class="h-16 w-auto object-contain">
+                </div>
+                <div class="hidden sm:block">
+                    <h1 class="font-oswald text-3xl font-black uppercase italic leading-none text-white">
+                        Galería <span class="text-yellow-400"><%= titulo %></span>
+                    </h1>
+                    <p class="text-[9px] uppercase tracking-[0.3em] font-bold text-green-200 mt-1">Sintrainagro 2026</p>
+                </div>
+            </div>
+            <nav class="flex items-center gap-3">
+                <a href="/publico" class="bg-yellow-500 hover:bg-yellow-400 text-green-900 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all shadow-md">Inicio</a>
+                <button onclick="window.history.back()" class="bg-[#0a6d52] hover:bg-[#0c8564] text-white px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border border-[#10a37b]">Volver</button>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<main class="container mx-auto px-4 pb-20 pt-10">
+    <% 
+        const fincas = (typeof fotosPorFinca !== 'undefined') ? Object.keys(fotosPorFinca) : [];
+        if (fincas.length > 0) { 
+            fincas.forEach(finca => { 
+    %>
+            <section class="mb-20">
+                <div class="flex items-center gap-4 mb-8 bg-white/60 p-6 rounded-3xl border border-white shadow-sm backdrop-blur-md">
+                    <div class="bg-green-700 text-yellow-400 p-3 rounded-2xl shadow-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-oswald text-4xl uppercase italic text-green-900 tracking-tighter"><%= finca %></h3>
+                        <span class="text-[10px] text-green-700 font-black uppercase tracking-[0.3em]">
+                            <%= fotosPorFinca[finca].length %> EQUIPOS EN ESTA SEDE
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
+                    <% fotosPorFinca[finca].forEach(foto => { %>
+                        <div onclick="abrirModal('<%= foto.imagen_url %>', '<%= foto.nombre_equipo %>', '<%= foto.categoria %>')" 
+                             class="group cursor-pointer relative overflow-hidden rounded-3xl bg-white border border-slate-300/50 shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
+                            
+                            <div class="aspect-[4/5] overflow-hidden bg-slate-200 relative">
+                                <img src="<%= foto.imagen_url %>" alt="<%= foto.nombre_equipo %>" 
+                                     class="w-full h-full object-cover transition-all duration-700 group-hover:scale-110">
+                                
+                                <div class="absolute top-3 left-3">
+                                    <span class="px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-widest shadow-lg 
+                                        <%= foto.categoria === 'Femenino' ? 'bg-pink-500 text-white' : 'bg-blue-600 text-white' %>">
+                                        <%= foto.categoria %>
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <div class="p-4 bg-white">
+                                <p class="text-[8px] text-green-600 font-bold uppercase tracking-widest mb-1">Representativo</p>
+                                <h4 class="font-oswald text-sm md:text-xl uppercase font-black text-slate-800 leading-none truncate">
+                                    <%= foto.nombre_equipo %>
+                                </h4>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+            </section>
+    <% 
+            }); 
+        } else { 
+    %>
+        <div class="text-center py-32 bg-white/40 rounded-[3rem] border-4 border-dashed border-white shadow-inner">
+            <div class="bg-slate-200 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 text-slate-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+            </div>
+            <p class="text-slate-500 italic uppercase tracking-[0.2em] font-black text-xl">Aún no hay fotos en esta categoría</p>
+            <p class="text-slate-400 text-xs mt-2 uppercase font-bold tracking-widest">Sintrainagro 2026</p>
+        </div>
+    <% } %>
+</main>
+
+<div id="modalZoom" class="fixed inset-0 z-[200] hidden bg-slate-900/95 backdrop-blur-md flex items-center justify-center p-4" onclick="cerrarModal()">
+    <button class="absolute top-6 right-6 text-white bg-white/10 p-2 rounded-full hover:bg-red-600 transition-all">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+    </button>
+    <div class="max-w-4xl w-full flex flex-col items-center">
+        <img id="imgModal" src="" class="max-h-[75vh] w-auto rounded-2xl shadow-2xl border-4 border-white" onclick="event.stopPropagation()">
+        <div class="text-center mt-6">
+            <span id="catModal" class="px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.2em] text-white mb-2 inline-block"></span>
+            <h2 id="tituloModal" class="font-oswald text-3xl text-yellow-400 uppercase italic font-black tracking-widest text-center"></h2>
+        </div>
+    </div>
+</div>
+
+<script>
+    function abrirModal(url, titulo, categoria) {
+        const modal = document.getElementById('modalZoom');
+        const catBadge = document.getElementById('catModal');
+        
+        document.getElementById('imgModal').src = url;
+        document.getElementById('tituloModal').innerText = titulo;
+        catBadge.innerText = categoria;
+        
+        if(categoria === 'Femenino') {
+            catBadge.className = "px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.2em] text-white mb-2 inline-block bg-pink-500";
+        } else {
+            catBadge.className = "px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.2em] text-white mb-2 inline-block bg-blue-600";
+        }
+
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function cerrarModal() {
+        document.getElementById('modalZoom').classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }
+</script>
+<footer class="bg-[#052e21] text-white pt-16 pb-8 mt-20 border-t-8 border-yellow-500">
+    <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
+            
+            <div class="text-center md:text-left">
+                <h4 class="font-oswald uppercase italic text-yellow-500 mb-2 tracking-widest text-lg font-bold">Club Deportivo</h4>
+                <p class="text-green-100/40 text-[11px] leading-relaxed">
+                    Portal oficial de noticias y resultados.<br>
+                    Sintrainagro 2026.
+                </p>
+            </div>
+
+            <div class="flex flex-col items-center justify-center">
+                <div class="bg-white/5 p-6 rounded-3xl border border-white/10 backdrop-blur-sm flex justify-center gap-8 w-full">
+                    <a href="https://www.comfama.com" target="_blank" rel="noopener noreferrer" class="transition-transform hover:scale-110">
+                        <img src="/img/comfama.png" alt="Comfama" class="h-10 w-auto">
+                    </a>
+                    <a href="https://www.comfenalcoantioquia.com.co" target="_blank" rel="noopener noreferrer" class="transition-transform hover:scale-110">
+                        <img src="/img/comfenalco.png" alt="Comfenalco" class="h-10 w-auto">
+                    </a>
+                </div>
+                </div>
+
+            <div class="text-center md:text-right">
+                <p class="text-2xl font-black uppercase tracking-widest text-white italic leading-none">Sintrainagro</p>
+                <div class="h-1 w-12 bg-yellow-500 ml-auto my-3 hidden md:block"></div>
+                <p class="text-green-500 text-[10px] uppercase font-bold tracking-wider">
+                    © 2026 Urabá: <span class="text-white">Tierra de campeones</span>
+                </p>
+            </div>
+
+        </div>
+
+        <div class="mt-12 pt-8 border-t border-white/5 text-center">
+            <p class="text-[9px] text-white/20 uppercase tracking-[0.5em]">Desarrollo Técnico - Comité Deportivo</p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

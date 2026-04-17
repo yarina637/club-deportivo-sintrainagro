@@ -1,0 +1,85 @@
+<<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suscriptores | Panel Administrativo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-[#f0f4f3]"> <!-- Un fondo grisáceo pero con un toque de verde muy sutil -->
+
+    <!-- NAVEGACIÓN ADMINISTRATIVA -->
+    <nav class="bg-[#064e3b] text-white p-4 shadow-md border-b-4 border-yellow-500">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="font-oswald text-xl uppercase italic tracking-tighter flex items-center gap-2">
+                👥 Comunidad de <span class="text-yellow-400">Fincas</span>
+            </h1>
+            <a href="/admin" class="bg-yellow-500 hover:bg-yellow-400 text-green-900 px-4 py-1 rounded text-xs font-black uppercase transition-all shadow-lg">
+                ← Volver al Panel
+            </a>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-10">
+        <!-- Tarjeta Principal -->
+        <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-green-100">
+            
+            <!-- Encabezado de Tabla -->
+            <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-white">
+                <h2 class="font-oswald text-xl text-green-900 uppercase italic">Lista de Suscriptores</h2>
+                <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-[10px] font-black border border-green-200">
+                    Total: <%= lista.length %> Miembros
+                </span>
+            </div>
+
+            <!-- Tabla -->
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-[#04211a] text-white font-oswald uppercase text-[10px] tracking-[0.2em]">
+                            <th class="p-4 border-r border-white/10">Nombre Completo</th>
+                            <th class="p-4 border-r border-white/10">Finca / Empresa</th>
+                            <th class="p-4 border-r border-white/10">Correo Electrónico</th>
+                            <th class="p-4 text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100 text-sm">
+                        <% if (lista.length > 0) { %>
+                            <% lista.forEach(persona => { %>
+                            <tr class="hover:bg-green-50/50 transition-colors">
+                                <td class="p-4 font-bold text-green-900 uppercase italic"><%= persona.nombre %></td>
+                                <td class="p-4">
+                                    <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-[10px] font-black uppercase italic border border-yellow-200">
+                                        🚜 <%= persona.finca %>
+                                    </span>
+                                </td>
+                                <td class="p-4 text-green-600 font-medium font-mono text-xs"><%= persona.correo %></td>
+                                <td class="p-4 text-center">
+                                    <form action="/admin/eliminar-suscriptor/<%= persona.id %>" method="POST" onsubmit="return confirm('¿Seguro que deseas eliminar a este suscriptor?')">
+                                        <button class="bg-red-50 text-red-500 hover:bg-red-500 hover:text-white px-3 py-1 rounded-lg transition-all text-[10px] font-black uppercase italic border border-red-100">
+                                            Eliminar
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <% }) %>
+                        <% } else { %>
+                            <tr>
+                                <td colspan="4" class="p-20 text-center text-green-800/40 italic uppercase font-bold tracking-widest bg-green-50/30">
+                                    No hay registros en la base de datos
+                                </td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <p class="mt-6 text-[10px] text-green-800/40 uppercase font-black tracking-[0.3em] text-center italic">
+            🔐 Acceso Restringido | Club Deportivo Sintrainagro 2026
+        </p>
+    </main>
+
+</body>
+</html>

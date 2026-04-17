@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Resultados | Club Deportivo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-slate-100 font-sans">
+
+    <nav class="bg-blue-900 text-white p-4 shadow-md border-b-4 border-yellow-500 sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="font-oswald text-xl uppercase italic tracking-tighter text-yellow-400">
+                Control de <span class="text-white">Resultados</span>
+            </h1>
+            
+            <div class="flex items-center gap-4">
+                <a href="/admin" class="bg-blue-700 hover:bg-blue-600 text-white px-4 py-1 rounded font-bold text-xs uppercase transition shadow flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    Volver al Panel
+                </a>
+                <a href="/publico" target="_blank" class="bg-yellow-500 text-blue-900 px-4 py-1 rounded font-bold text-xs uppercase hover:bg-yellow-400 transition">Ver Web</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8">
+        
+        <section class="bg-white p-6 rounded-2xl shadow-lg border border-gray-200">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="bg-blue-600 p-2 rounded-lg shadow-lg text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    </svg>
+                </div>
+                <h2 class="font-oswald text-2xl text-slate-800 uppercase italic">Ingresar Marcadores de Partidos</h2>
+            </div>
+
+            <div class="overflow-hidden rounded-xl border border-gray-100">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-50 border-b border-gray-200 font-oswald text-gray-400 text-[10px] uppercase tracking-widest">
+                            <th class="p-4">Partido y Logística</th>
+                            <th class="p-4 text-center">Resultado (Local - Visitante)</th>
+                            <th class="p-4 text-right">Acciones</th>
+                        </tr>
+                    </thead>
+<tbody class="divide-y divide-gray-100">
+    <% if (partidos && partidos.length > 0) { %>
+        <% partidos.forEach(partido => { %>
+        <tr class="hover:bg-slate-50 transition-colors">
+            <td class="p-4">
+                <div class="flex flex-col">
+                    <span class="text-sm font-black text-slate-700 uppercase">
+                        <%= partido.equipo_local %> <span class="text-blue-500 italic mx-1">vs</span> <%= partido.equipo_visitante %>
+                    </span>
+                    <div class="flex gap-2 mt-1">
+                        <span class="text-[9px] bg-slate-200 text-slate-600 px-1.5 py-0.5 rounded font-bold uppercase"><%= partido.categoria %></span>
+                        <span class="text-[9px] text-slate-400 font-bold uppercase"><%= partido.lugar %></span>
+                    </div>
+                </div>
+            </td>
+
+            <td class="p-4">
+                <div class="flex items-center justify-center gap-4">
+                    <div class="flex flex-col items-center">
+                        <label class="text-[8px] uppercase font-black text-slate-400 mb-1">Local</label>
+                        <input type="number" name="goles_local" form="form-<%= partido.id %>" value="<%= partido.goles_local %>" min="0" 
+                            class="w-14 p-2 bg-slate-50 border-2 border-slate-200 rounded-lg text-center font-black text-blue-900 focus:border-blue-500 outline-none">
+                    </div>
+                    <span class="text-slate-300 font-black mt-4">-</span>
+                    <div class="flex flex-col items-center">
+                        <label class="text-[8px] uppercase font-black text-slate-400 mb-1">Visita</label>
+                        <input type="number" name="goles_visitante" form="form-<%= partido.id %>" value="<%= partido.goles_visitante %>" min="0" 
+                            class="w-14 p-2 bg-slate-50 border-2 border-slate-200 rounded-lg text-center font-black text-blue-900 focus:border-blue-500 outline-none">
+                    </div>
+                </div>
+            </td>
+            
+            <td class="p-4 text-right">
+                <form id="form-<%= partido.id %>" action="/actualizar-resultado/<%= partido.id %>" method="POST">
+                    <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-xl shadow-md uppercase text-[10px] tracking-widest transition-all">
+                        Actualizar
+                    </button>
+                </form>
+            </td>
+        </tr>
+        <% }) %>
+    <% } %>
+</tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-10 text-slate-400 text-[10px] uppercase font-bold tracking-widest">
+        Sistema de Resultados - Club Deportivo 2026
+    </footer>
+
+</body>
+</html>

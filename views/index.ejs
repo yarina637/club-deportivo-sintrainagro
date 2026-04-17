@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrativo | Club Deportivo Sintrainagro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-oswald { font-family: 'Oswald', sans-serif; }
+        .bg-logo-gradient {
+            background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+        }
+    </style>
+</head>
+<body class="bg-slate-100">
+
+    <!-- BARRA SUPERIOR - Identidad Fuerte -->
+    <nav class="bg-[#14532d] text-white p-4 shadow-xl border-b-4 border-yellow-500">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="bg-white p-1 rounded-full shadow-md">
+                    <!-- Aquí podrías poner tu logo en pequeño si quieres -->
+                    <span class="text-xl">⚽</span>
+                </div>
+                <h1 class="font-oswald text-2xl uppercase italic tracking-tight">Sintrainagro <span class="text-yellow-400 text-sm not-italic font-sans block leading-none">Panel Administrativo</span></h1>
+            </div>
+            <a href="/publico" target="_blank" class="bg-yellow-500 hover:bg-yellow-400 text-green-900 px-5 py-2 rounded-full font-black text-xs uppercase transition-all transform hover:scale-105 shadow-lg">
+                Ver Web Pública
+            </a>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-10">
+        
+        <!-- SECCIÓN: CREAR NUEVA NOTICIA -->
+        <section class="mb-16">
+            <div class="bg-white rounded-3xl shadow-2xl overflow-hidden border-l-[12px] border-green-700">
+                <div class="p-8">
+                    <div class="flex justify-between items-center mb-8">
+                        <h2 class="font-oswald text-3xl text-green-900 uppercase italic">🚀 Publicar Nueva Crónica</h2>
+                        <a href="/admin/suscriptores" class="bg-slate-800 text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-green-700 transition-colors flex items-center gap-2">
+                            👥 Comunidad
+                        </a>
+                    </div>
+
+                    <form action="/subir" method="POST" enctype="multipart/form-data" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-bold uppercase text-green-800 mb-2 ml-1">Título del Encuentro / Noticia</label>
+                                <input type="text" name="titulo" required placeholder="Ej: Gran victoria en Urabá..." 
+                                    class="w-full p-4 bg-white border-2 border-slate-200 rounded-2xl focus:border-green-500 focus:ring-4 focus:ring-green-100 outline-none transition-all shadow-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold uppercase text-green-800 mb-2 ml-1">Fotografía Destacada</label>
+                                <div class="relative group">
+                                    <input type="file" name="imagen" accept="image/*" required 
+                                        class="w-full p-3 border-2 border-dashed border-green-300 rounded-2xl bg-green-50 text-sm cursor-pointer group-hover:bg-green-100 transition-all">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold uppercase text-green-800 mb-2 ml-1">Relato de la Noticia</label>
+                            <textarea name="contenido" rows="6" required placeholder="Escribe aquí los detalles del evento..."
+                                class="w-full p-4 bg-white border-2 border-slate-200 rounded-2xl focus:border-green-500 focus:ring-4 focus:ring-green-100 outline-none transition-all shadow-sm"></textarea>
+                        </div>
+                        <div class="md:col-span-2">
+                            <button type="submit" class="w-full bg-logo-gradient hover:brightness-110 text-white font-black py-5 rounded-2xl shadow-xl uppercase tracking-widest transition-all transform active:scale-95 text-lg">
+                                ⚡ PUBLICAR AHORA
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: LISTADO DE NOTICIAS -->
+        <section>
+            <div class="flex items-center gap-4 mb-8">
+                <div class="h-10 w-2 bg-yellow-500 rounded-full"></div>
+                <h2 class="font-oswald text-3xl text-slate-800 uppercase italic">Historial de Noticias</h2>
+            </div>
+            
+            <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-200">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-800 text-white">
+                            <th class="p-5 text-xs font-bold uppercase tracking-widest">Contenido</th>
+                            <th class="p-5 text-xs font-bold uppercase tracking-widest text-center">Estado</th>
+                            <th class="p-5 text-xs font-bold uppercase tracking-widest text-right">Gestión</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <% noticias.forEach(noticia => { %>
+                        <tr class="hover:bg-green-50/50 transition-colors group">
+                            <td class="p-5">
+                                <div class="flex items-center gap-5">
+                                    <div class="w-20 h-20 rounded-xl overflow-hidden bg-slate-200 flex-shrink-0 shadow-md group-hover:scale-105 transition-transform">
+                                        <% if (noticia.imagen_url) { %>
+                                            <img src="<%= noticia.imagen_url %>" class="w-full h-full object-cover">
+                                        <% } else { %>
+                                            <div class="w-full h-full flex items-center justify-center text-2xl">🏟️</div>
+                                        <% } %>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-slate-900 text-lg mb-1 leading-tight"><%= noticia.titulo %></h3>
+                                        <span class="inline-block bg-slate-200 text-slate-600 px-2 py-0.5 rounded text-[10px] font-mono"><%= noticia.fecha %></span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="p-5 text-center">
+                                <% if (noticia.destacada) { %>
+                                    <span class="bg-yellow-400 text-yellow-900 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-tighter shadow-sm border border-yellow-500">
+                                        ⭐ Destacada
+                                    </span>
+                                <% } else { %>
+                                    <span class="text-slate-400 text-[10px] font-bold uppercase italic">Estándar</span>
+                                <% } %>
+                            </td>
+                            <td class="p-5">
+                                <div class="flex justify-end gap-3">
+                                    <form action="/destacar/<%= noticia.id %>" method="POST">
+                                        <button class="w-10 h-10 flex items-center justify-center bg-white border-2 border-slate-200 text-slate-400 rounded-xl hover:border-yellow-500 hover:text-yellow-500 transition-all hover:shadow-lg" title="Destacar">⭐</button>
+                                    </form>
+                                    <a href="/editar/<%= noticia.id %>" class="w-10 h-10 flex items-center justify-center bg-white border-2 border-slate-200 text-slate-400 rounded-xl hover:border-green-600 hover:text-green-600 transition-all hover:shadow-lg" title="Editar">📝</a>
+                                    <form action="/eliminar/<%= noticia.id %>" method="POST" onsubmit="return confirm('¿Borrar esta noticia permanentemente?')">
+                                        <button class="w-10 h-10 flex items-center justify-center bg-white border-2 border-slate-200 text-slate-400 rounded-xl hover:border-red-600 hover:text-red-600 transition-all hover:shadow-lg" title="Eliminar">🗑️</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>

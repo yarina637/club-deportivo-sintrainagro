@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrativo | Club Deportivo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-slate-100 font-sans">
+
+    <nav class="bg-blue-900 text-white p-4 shadow-md border-b-4 border-yellow-500 sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="font-oswald text-xl uppercase italic tracking-tighter text-yellow-400">Panel <span class="text-white">Administrativo</span></h1>
+            
+            <div class="flex items-center gap-4">
+                <a href="/admin/suscriptores" class="bg-blue-700 hover:bg-blue-600 text-white px-4 py-1 rounded font-bold text-xs uppercase transition shadow">👥 Comunidad</a>
+                <a href="/publico" target="_blank" class="bg-yellow-500 text-blue-900 px-4 py-1 rounded font-bold text-xs uppercase hover:bg-yellow-400">Ver Web</a>
+                
+                <button onclick="ejecutarSalida()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-1 rounded font-bold text-xs uppercase flex items-center gap-2 transition-all">
+                    <span>Cerrar Sesión</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8 space-y-12">
+        
+        <section class="bg-white p-6 rounded-2xl shadow-lg border border-gray-200">
+            <h2 class="font-oswald text-2xl mb-6 text-blue-900 uppercase italic">🚀 Publicar Nueva Crónica</h2>
+            <form action="/subir" method="POST" enctype="multipart/form-data" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-black uppercase text-gray-500 mb-1">Título</label>
+                        <input type="text" name="titulo" required class="w-full p-3 bg-slate-50 border-2 border-slate-200 rounded-xl focus:border-blue-500 outline-none text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-black uppercase text-gray-500 mb-1">Categoría</label>
+                        <select name="categoria" class="w-full p-3 bg-slate-50 border-2 border-slate-200 rounded-xl focus:border-blue-500 text-sm font-bold">
+                            <option value="General">📰 General / Institucional</option>
+                            <option value="Masculino">⚽ Fútbol Masculino</option>
+                            <option value="Femenino">♀️ Fútbol Femenino</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-black uppercase text-gray-500 mb-1">Imagen</label>
+                        <input type="file" name="imagen" accept="image/*" required class="w-full p-2 border-2 border-dashed border-slate-300 rounded-xl bg-slate-50 text-sm">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-black uppercase text-gray-500 mb-1">Contenido</label>
+                    <textarea name="contenido" rows="8" required class="w-full p-3 bg-slate-50 border-2 border-slate-200 rounded-xl focus:border-blue-500 outline-none text-sm"></textarea>
+                </div>
+                <div class="md:col-span-2 flex items-center gap-3 bg-yellow-50 p-4 rounded-xl border border-yellow-200">
+                    <input type="checkbox" name="destacada" value="1" id="destacada" class="w-5 h-5 accent-yellow-600">
+                    <label for="destacada" class="text-sm font-bold text-yellow-800 uppercase italic cursor-pointer">⭐ Marcar como Noticia Destacada</label>
+                </div>
+                <button type="submit" class="md:col-span-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-lg uppercase tracking-widest transition-all">Publicar Noticia</button>
+            </form>
+        </section>
+
+        <section class="bg-slate-900 p-6 rounded-2xl shadow-xl text-white">
+            <h2 class="font-oswald text-xl mb-4 text-yellow-500 uppercase italic border-l-4 border-yellow-500 pl-3">📊 Actualizar Tabla de Posiciones</h2>
+            <form action="/admin/posiciones" method="POST" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                <div class="col-span-2 md:col-span-3 lg:col-span-2">
+                    <label class="block text-[10px] uppercase text-slate-400 mb-1">Equipo</label>
+                    <input type="text" name="equipo" required class="w-full p-2 bg-slate-800 border border-slate-700 rounded-lg text-sm outline-none focus:border-yellow-500">
+                </div>
+                <div class="col-span-2 md:col-span-1 lg:col-span-1">
+                    <label class="block text-[10px] uppercase text-yellow-500 mb-1">Categoría</label>
+                    <select name="categoria" class="w-full p-2 bg-slate-800 border border-slate-700 rounded-lg text-sm text-white">
+                        <option value="Masculino">Masculino ⚽</option>
+                        <option value="Femenino">Femenino ♀️</option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-4 col-span-2 md:col-span-4 lg:col-span-2 gap-2">
+                    <div><label class="block text-[10px] text-center uppercase">PJ</label><input type="number" name="pj" required class="w-full p-2 bg-slate-800 border border-slate-700 rounded text-center text-sm"></div>
+                    <div><label class="block text-[10px] text-center uppercase">PG</label><input type="number" name="pg" required class="w-full p-2 bg-slate-800 border border-slate-700 rounded text-center text-sm"></div>
+                    <div><label class="block text-[10px] text-center uppercase">PE</label><input type="number" name="pe" required class="w-full p-2 bg-slate-800 border border-slate-700 rounded text-center text-sm"></div>
+                    <div><label class="block text-[10px] text-center uppercase">PP</label><input type="number" name="pp" required class="w-full p-2 bg-slate-800 border border-slate-700 rounded text-center text-sm"></div>
+                </div>
+                <div class="grid grid-cols-3 col-span-2 md:col-span-4 lg:col-span-3 gap-2">
+                    <div><label class="block text-[10px] text-center uppercase">GF</label><input type="number" name="gf" required class="w-full p-2 bg-slate-800 border border-slate-700 rounded text-center text-sm"></div>
+                    <div><label class="block text-[10px] text-center uppercase">GC</label><input type="number" name="gc" required class="w-full p-2 bg-slate-800 border border-slate-700 rounded text-center text-sm"></div>
+                    <div><label class="block text-[10px] text-center uppercase font-bold text-yellow-500">PTS</label><input type="number" name="puntos" required class="w-full p-2 bg-slate-800 border border-yellow-500/50 rounded text-center text-sm font-bold text-yellow-500"></div>
+                </div>
+                <button type="submit" class="col-span-full bg-yellow-500 hover:bg-yellow-400 text-blue-950 font-black py-3 rounded-xl uppercase text-xs transition-all shadow-lg mt-2">
+                    Guardar / Actualizar Equipo
+                </button>
+            </form>
+        </section>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <section class="bg-white p-6 rounded-2xl shadow-lg border border-gray-200">
+                <h2 class="font-oswald text-xl mb-4 text-blue-900 uppercase italic border-l-4 border-blue-600 pl-3">⚽ Actualizar Goleadores</h2>
+                <form action="/admin/goleador" method="POST" class="space-y-4">
+                    <div>
+                        <label class="block text-[10px] font-bold uppercase text-gray-500">Nombre del Jugador</label>
+                        <input type="text" name="nombre" class="w-full p-2 rounded bg-slate-100 border border-slate-200 text-sm" required>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold uppercase text-gray-500">Categoría</label>
+                        <select name="categoria" class="w-full p-2 rounded bg-slate-100 border border-slate-200 text-sm" required>
+                            <option value="Masculino">Masculino ⚽</option>
+                            <option value="Femenino">Femenino ♀️</option>
+                        </select>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[10px] font-bold uppercase text-gray-500">Finca</label>
+                            <input type="text" name="finca" class="w-full p-2 rounded bg-slate-100 border border-slate-200 text-sm" required>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold uppercase text-gray-500">Goles</label>
+                            <input type="number" name="goles" class="w-full p-2 rounded bg-slate-100 border border-slate-200 text-sm" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="w-full bg-blue-600 text-white font-bold p-3 rounded-xl uppercase text-xs hover:bg-blue-700 transition-all">Actualizar Goleador</button>
+                </form>
+            </section>
+
+            <section class="bg-slate-800 p-6 rounded-2xl text-white shadow-2xl">
+                <h2 class="font-oswald text-xl mb-4 uppercase italic text-blue-400 border-l-4 border-blue-400 pl-3">📸 Foto de Equipo (Galería)</h2>
+                <form action="/subir-galeria" method="POST" enctype="multipart/form-data" class="space-y-4">
+                    <input type="text" name="nombre_equipo" placeholder="Nombre del Equipo" class="w-full p-2 rounded bg-slate-700 border border-slate-600 text-sm">
+                    <input type="text" name="finca" placeholder="Finca" class="w-full p-2 rounded bg-slate-700 border border-slate-600 text-sm">
+                    <select name="categoria" class="w-full p-2 rounded bg-slate-700 border border-slate-600 text-sm">
+                        <option value="Masculino">Fútbol Masculino</option>
+                        <option value="Femenino">Fútbol Femenino</option>
+                    </select>
+                    <input type="file" name="imagen" class="w-full text-xs text-slate-400">
+                    <button type="submit" class="w-full bg-blue-500 hover:bg-blue-400 text-white font-bold p-3 rounded-xl uppercase text-xs transition-all">Subir a Galería</button>
+                </form>
+            </section>
+        </div>
+<section class="bg-white p-6 rounded-2xl shadow-lg border border-gray-200">
+    <div class="flex items-center gap-3 mb-6">
+        <div class="bg-green-600 p-2 rounded-lg shadow-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+        </div>
+        <h2 class="font-oswald text-2xl text-slate-800 uppercase italic">Programar Próximo Partido</h2>
+    </div>
+
+    <form action="/admin/partido" method="POST" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="space-y-4 p-4 bg-slate-50 rounded-xl border border-slate-100">
+            <p class="text-[10px] font-black uppercase text-blue-600 mb-2 tracking-widest">Enfrentamiento</p>
+            <div>
+                <label class="block text-[10px] font-bold uppercase text-gray-500 mb-1">Equipo Local</label>
+                <input type="text" name="equipo_local" placeholder="Ej: F.C. Bananeros" required class="w-full p-2.5 bg-white border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-green-500 outline-none">
+            </div>
+            <div class="flex justify-center py-1">
+                <span class="font-oswald font-black text-slate-300 italic">VS</span>
+            </div>
+            <div>
+                <label class="block text-[10px] font-bold uppercase text-gray-500 mb-1">Equipo Visitante</label>
+                <input type="text" name="equipo_visitante" placeholder="Ej: Atl. Urabá" required class="w-full p-2.5 bg-white border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-green-500 outline-none">
+            </div>
+        </div>
+
+        <div class="space-y-4 p-4 bg-slate-50 rounded-xl border border-slate-100">
+            <p class="text-[10px] font-black uppercase text-blue-600 mb-2 tracking-widest">Logística y Fecha</p>
+            <div>
+                <label class="block text-[10px] font-bold uppercase text-gray-500 mb-1">Fecha y Hora</label>
+                <input type="datetime-local" name="fecha_hora" required class="w-full p-2.5 bg-white border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-green-500 outline-none">
+            </div>
+            <div>
+                <label class="block text-[10px] font-bold uppercase text-gray-500 mb-1">Cancha / Lugar</label>
+                <input type="text" name="lugar" placeholder="Ej: Cancha Central #1" required class="w-full p-2.5 bg-white border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-green-500 outline-none">
+            </div>
+        </div>
+
+        <div class="space-y-4 p-4 bg-slate-50 rounded-xl border border-slate-100">
+            <p class="text-[10px] font-black uppercase text-blue-600 mb-2 tracking-widest">Categoría</p>
+            <div>
+                <label class="block text-[10px] font-bold uppercase text-gray-500 mb-1">Género / Torneo</label>
+                <select name="categoria" class="w-full p-2.5 bg-white border border-slate-200 rounded-lg text-sm font-bold appearance-none">
+                    <option value="Masculino">⚽ Fútbol Masculino</option>
+                    <option value="Femenino">♀️ Fútbol Femenino</option>
+                </select>
+            </div>
+            <div class="pt-4">
+                <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-4 rounded-xl shadow-lg uppercase text-xs tracking-widest transition-all transform hover:-translate-y-1 active:scale-95">
+                    Publicar Partido
+                </button>
+            </div>
+        </div>
+    </form>
+</section>
+        <section class="pb-20">
+            <h2 class="font-oswald text-2xl mb-6 text-slate-800 uppercase italic border-l-8 border-yellow-500 pl-4">Noticias Publicadas</h2>
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-50 border-b border-gray-200 font-oswald text-gray-400 text-[10px] uppercase tracking-widest">
+                            <th class="p-4">Noticia</th>
+                            <th class="p-4 text-center">Estado</th>
+                            <th class="p-4 text-right">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        <% noticias.forEach(noticia => { %>
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="p-4 text-sm font-bold text-slate-700"><%= noticia.titulo %></td>
+                            <td class="p-4 text-center">
+                                <% if (noticia.destacada) { %>
+                                    <span class="bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded text-[9px] font-black uppercase">⭐ Destacada</span>
+                                <% } %>
+                                <span class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded text-[9px] font-black uppercase"><%= noticia.categoria %></span>
+                            </td>
+                            <td class="p-4 text-right">
+                                <form action="/eliminar/<%= noticia.id %>" method="POST" onsubmit="return confirm('¿Borrar noticia?')">
+                                    <button class="p-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-600 hover:text-white transition-all text-xs font-bold">Borrar</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function ejecutarSalida() {
+            var solicitud = new XMLHttpRequest();
+            solicitud.open("GET", "/admin", true, "usuario_salida", "clave_falsa");
+            solicitud.onreadystatechange = function() {
+                if (solicitud.readyState === 4) {
+                    window.location.href = "/publico";
+                }
+            };
+            solicitud.send();
+            setTimeout(function() { window.location.href = "/publico"; }, 1000);
+        }
+    </script>
+</body>
+</html>
